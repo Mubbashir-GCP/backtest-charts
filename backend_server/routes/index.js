@@ -32,10 +32,10 @@ let queryText = `with a1 as (
   select row_to_json(a1) from a1`
 
 const client = new Client({
-  user: 'greencanvas',
+  user: 'gcp_read_only',
   host: '35.223.254.139',
   database: 'greencanvas',
-  password: 'r5mn)^e}WXA',
+  password: 'gc$$2929%',
   port: 5432
 });
 
