@@ -200,7 +200,6 @@ const symbolInfo = {
     type: 'stock',
     supported_resolutions: ['1'],
     session: '0930-1600',
-    timezone: 'Asia/Kolkata',
     minmov: 1,
     has_intraday: true,
     data_status: 'endofday',
@@ -346,7 +345,7 @@ export default {
 
                 // if (bar.time >= from && bar.time < to) {
                     backtests_data = [...backtests_data, {
-                        time: time,
+                        time: time + 18000000, // adding 5 hours
                         low: bar.l,
                         high: bar.h,
                         open: bar.o,
