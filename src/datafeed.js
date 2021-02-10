@@ -335,7 +335,7 @@ export default {
             // console.log(new Date('2021-01-19T09:35:00'));
 
             data.forEach(bar => {
-                let timestamp = new Date(bar.nvda_time);
+                let timestamp = new Date(bar.Timestamp);
                 let time = Math.floor(timestamp.getTime());
                 
                 // if (i < 1) {
@@ -345,7 +345,7 @@ export default {
 
                 // if (bar.time >= from && bar.time < to) {
                     backtests_data = [...backtests_data, {
-                        time: time + 18000000, // adding 5 hours
+                        time: time, 
                         low: bar.l,
                         high: bar.h,
                         open: bar.o,

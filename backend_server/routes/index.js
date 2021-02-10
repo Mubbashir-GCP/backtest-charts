@@ -5,29 +5,26 @@ const cors = require('cors');
 const { Pool, Client } = require('pg');
 
 // let backtestID = '58432ade-6b17-11eb-98dc-0242ac1c0002';
-let backtestID;
+// let backtestID;
 let queryText = `with a1 as (
-  select * from 
-  (select "Timestamp" as nvda_time, o,h,l,c as c,v 
-  from public.nvda_ohlcv where "Timestamp" > '2021-01-01') as nvda_ohlcv
-  
-  left join 
-  
-  (select *
-  ,btth.date_in as btth_date_in
-  ,DATE_TRUNC('minutes',btth.date_in) date_inMin
-  , btth.pnl pnl_bt
-  ,btth.direction btth_direction
-  , btth.backtest_start btth_backtest_start
-  , case when direction ='long' then (price_out - price_in) else (price_in - price_out) end pnl_2 
-  ,case when (case when direction ='long' then (price_out - price_in) else (price_in - price_out) end) > 0 then 1 end as win
-  ,case when (case when direction ='long' then (price_out - price_in) else (price_in - price_out) end) <0 then 1 end as loss
-  from public.backtesting_trade_history btth 
-  where backtest_id = $1) as btth
-  
-  on nvda_ohlcv.nvda_time = btth.date_inMin
-  
-  order by nvda_ohlcv asc) 
+  select 
+  "Timestamp"
+  ,o
+  ,h
+  ,l
+  ,c
+  ,v
+  ,date_in
+  ,date_out
+  ,price_in
+  ,price_out
+  ,direction
+  ,pnl
+  ,prediction
+  from public.view_for_backtest_charts 
+  where backtest_id= $1
+  order by "Timestamp" asc
+  ) 
   
   select row_to_json(a1) from a1`
 
