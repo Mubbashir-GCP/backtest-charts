@@ -200,7 +200,7 @@ const symbolInfo = {
     type: 'stock',
     supported_resolutions: ['1'],
     session: '0930-1600',
-    timezone: 'Etc/UTC',
+    timezone: 'Asia/Kolkata',
     minmov: 1,
     has_intraday: true,
     data_status: 'endofday',

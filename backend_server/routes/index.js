@@ -29,7 +29,7 @@ let queryText = `with a1 as (
   
   order by nvda_ohlcv asc) 
   
-  select row_to_json(a1) from a1`
+  select row_to_json(a1) from a1 limit 100`
 
 const client = new Client({
   user: 'greencanvas',
@@ -49,9 +49,9 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.post('/', cors(), (req, res, next) => {
-  console.log(req.body.backtestID);
-  backtestID = req.body.backtestID;
+router.get('/chart', cors(), (req, res, next) => {
+  console.log(req.query);
+  backtestID = req.query.backtestId;
   return res.redirect('http://localhost:5000');
 });
 
