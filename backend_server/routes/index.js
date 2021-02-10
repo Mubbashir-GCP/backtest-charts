@@ -29,7 +29,7 @@ let queryText = `with a1 as (
   
   order by nvda_ohlcv asc) 
   
-  select row_to_json(a1) from a1 limit 100`
+  select row_to_json(a1) from a1`
 
 const client = new Client({
   user: 'greencanvas',
