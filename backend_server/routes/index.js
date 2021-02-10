@@ -5,9 +5,9 @@ const cors = require('cors');
 const { Pool, Client } = require('pg');
 
 // let backtestID = '58432ade-6b17-11eb-98dc-0242ac1c0002';
-// let backtestID;
+let backtestID;
 let queryText = `with a1 as (
-  select 
+  select distinct
   "Timestamp"
   ,o
   ,h
@@ -22,10 +22,9 @@ let queryText = `with a1 as (
   ,pnl
   ,prediction
   from public.view_for_backtest_charts 
-  where backtest_id= $1
-  order by "Timestamp" asc
-  ) 
-  
+  where backtest_id= $1 and "Timestamp" > '2021-01-01'
+  order by "Timestamp" asc)
+
   select row_to_json(a1) from a1`
 
 const client = new Client({

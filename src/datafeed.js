@@ -355,7 +355,8 @@ export default {
                         pnl: bar.pnl,
                         price_in: bar.price_in,
                         price_out: bar.price_out,
-                        nbars: bar.nbars
+                        nbars: bar.nbars,
+                        prediction: bar.prediction
                         // sma20: bar.sma_20
                     }];
                 // }
@@ -484,8 +485,23 @@ export default {
                     labelFontColor: '#ffffff',
                     minSize: markSize 
                 }
+                
+                let predictionMarkObject;
+               
+                if(bar.prediction != 1) {
+                    predictionMarkObject = {
+                        id: ++i,
+                        time: bar.time / 1000,
+                        color: bar.prediction == 0 ? { border: '#b00000', background: '#b00000' } : 
+                                                    { border: '#007818', background: '#007818' },
+                        minSize: 10
+                    }
+
+                    marks = [...marks, predictionMarkObject]
+               }
 
                 marks = [...marks, markObject];
+                
                 ++i;
                 // console.log(marks);
             }
