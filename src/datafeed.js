@@ -522,7 +522,7 @@ export default {
                 // console.log(marks);
             }
         });
-
+        i = 0;
         onDataCallback(marks);
         console.log(marks);
 
