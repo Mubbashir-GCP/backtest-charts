@@ -20,10 +20,16 @@ let queryText = `with a1 as (
   ,price_out
   ,direction
   ,pnl
+  ,pnl_pct
+  ,cum_pnl
+  ,nbars
   ,prediction
   from public.view_for_backtest_charts 
-  where backtest_id= $1 and "Timestamp" > '2021-01-01'
+  where backtest_id= $1 
+  and "Timestamp" > (select min(date_trunc('day',date_in)) from view_for_backtest_charts where backtest_id= $1)
+  and "Timestamp" < (select max(date_trunc('day',date_in)) from view_for_backtest_charts where backtest_id= $1)
   order by "Timestamp" asc)
+
 
   select row_to_json(a1) from a1`
 

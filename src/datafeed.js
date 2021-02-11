@@ -345,7 +345,7 @@ export default {
 
                 // if (bar.time >= from && bar.time < to) {
                     backtests_data = [...backtests_data, {
-                        time: time, 
+                        time: time + 18000000, 
                         low: bar.l,
                         high: bar.h,
                         open: bar.o,
@@ -432,8 +432,38 @@ export default {
         // const data = await makeApiRequest();
         let i = 0;
         backtests_data.forEach(bar => {
-            // let timestamp = new Date(bar.nvda_time);
-            // let time = Math.floor(timestamp.getTime());
+            let predictionMarkObject;
+
+             
+            if(bar.prediction == null) {
+                predictionMarkObject = {
+                    id: i++,
+                    time: bar.time / 1000,
+                    color: { border: '#c7c7c7', background: '#c7c7c7' },
+                    minSize: 2
+                }
+            }
+            
+            else if(bar.prediction == 1) {
+                predictionMarkObject = {
+                    id: i++,
+                    time: bar.time / 1000,
+                    color: { border: '#000', background: '#fff' },
+                    minSize: 2
+                }
+            }
+            
+            else {
+                predictionMarkObject = {
+                    id: i++,
+                    time: bar.time / 1000,
+                    color: bar.prediction == 0 ? { border: '#b00000', background: '#b00000' } : 
+                                                { border: '#007818', background: '#007818' },
+                    minSize: 2
+                }
+            }
+
+            marks = [...marks, predictionMarkObject]
 
             if(bar.direction != null) {
                 let markSize;
@@ -477,7 +507,7 @@ export default {
                                     `<p>nbars: ${bar.nbars}</p>`;
 
                 let markObject = {
-                    id: i,
+                    id: i++,
                     time: bar.time / 1000,
                     color: bar.pnl >= 0 ? 'green' : 'red',
                     text:  hoverBoxText,
@@ -485,24 +515,10 @@ export default {
                     labelFontColor: '#ffffff',
                     minSize: markSize 
                 }
-                
-                let predictionMarkObject;
-               
-                if(bar.prediction != 1) {
-                    predictionMarkObject = {
-                        id: ++i,
-                        time: bar.time / 1000,
-                        color: bar.prediction == 0 ? { border: '#b00000', background: '#b00000' } : 
-                                                    { border: '#007818', background: '#007818' },
-                        minSize: 10
-                    }
-
-                    marks = [...marks, predictionMarkObject]
-               }
 
                 marks = [...marks, markObject];
                 
-                ++i;
+                // ++i;
                 // console.log(marks);
             }
         });
