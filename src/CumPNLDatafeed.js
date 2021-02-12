@@ -47,7 +47,7 @@ export default {
                 let time = Math.floor(timestamp.getTime());
                 
                 backtests_data = [...backtests_data, {
-                    time: time + 18000000, 
+                    time: time, 
                     low: bar.cum_pnl,
                     high: bar.cum_pnl,
                     open: bar.cum_pnl,

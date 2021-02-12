@@ -5,7 +5,7 @@ const cors = require('cors');
 const { Pool, Client } = require('pg');
 
 // let backtestID = '58432ade-6b17-11eb-98dc-0242ac1c0002';
-let backtestID;
+let backtestId;
 let queryText = `with a1 as (
   select distinct
   "Timestamp"
@@ -52,8 +52,16 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/chart', cors(), (req, res, next) => {
+  // console.log(req.query);
+  // if(req.body.backtestId != '')
+  //   backtestId = req.body.backtestId;
+  // else if(req.query.backtestId != null)
+  //   backtestId = req.query.backtestId;
+  // console.log(req.body);
   console.log(req.query);
-  backtestID = req.query.backtestId;
+  backtestId = req.query.backtestId;
+  console.log(backtestId);
+  
   return res.redirect('http://localhost:5000');
 });
 
@@ -67,7 +75,7 @@ router.get('/backtestData', cors(), async (req, res, next) => {
   })
   .catch(error => console.log(error.message));
 
-  let response = await client.query(queryText, [backtestID]);
+  let response = await client.query(queryText, [backtestId]);
   
   response.rows.forEach(row => {
     backtests_jsons = [... backtests_jsons, row.row_to_json]

@@ -345,7 +345,7 @@ export default {
 
                 // if (bar.time >= from && bar.time < to) {
                     backtests_data = [...backtests_data, {
-                        time: time + 18000000, 
+                        time: time, 
                         low: bar.l,
                         high: bar.h,
                         open: bar.o,

@@ -1,3 +1,5 @@
+// export let backtests_data = [];
+
 export async function makeApiRequest(path) {
     try {
         // const response = await fetch(`https://min-api.cryptocompare.com/${path}`);
@@ -7,6 +9,7 @@ export async function makeApiRequest(path) {
                 'Content-Type': 'application/json'
             }
         });
+        // backtests_data = response.json();
         return response.json();
     } catch(error) {
         throw new Error(`CryptoCompare request error: ${error.status}`);
