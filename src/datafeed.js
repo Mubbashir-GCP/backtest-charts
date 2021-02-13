@@ -333,7 +333,7 @@ export default {
             // }
 
             // console.log(new Date('2021-01-19T09:35:00'));
-            if(!data[0].hasOwnProperty(match_or_no_match)) {
+            if(!data[0].hasOwnProperty('match_or_no_match')) {
                 data.forEach(bar => {
                     let timestamp = new Date(bar.Timestamp);
                     let time = Math.floor(timestamp.getTime());
@@ -466,7 +466,7 @@ export default {
         console.log(backtests_data);
         // const data = await makeApiRequest();
         let i = 0;
-        if(!backtests_data[0].hasOwnProperty(match_or_no_match)) {
+        if(!backtests_data[0].hasOwnProperty('match_or_no_match')) {
             backtests_data.forEach(bar => {
                 let predictionMarkObject;
 
