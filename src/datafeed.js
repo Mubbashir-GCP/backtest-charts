@@ -333,41 +333,77 @@ export default {
             // }
 
             // console.log(new Date('2021-01-19T09:35:00'));
-            data.forEach(bar => {
-                let timestamp = new Date(bar.Timestamp);
-                let time = Math.floor(timestamp.getTime());
-                
-                // if (i < 1) {
-                //     console.log(time);
-                //     ++i;
-                // }
+            if(!data[0].hasOwnProperty(match_or_no_match)) {
+                data.forEach(bar => {
+                    let timestamp = new Date(bar.Timestamp);
+                    let time = Math.floor(timestamp.getTime());
+                    
+                    // if (i < 1) {
+                    //     console.log(time);
+                    //     ++i;
+                    // }
 
-                // if (bar.time >= from && bar.time < to) {
-                    backtests_data = [...backtests_data, {
-                        time: time, 
-                        low: bar.l,
-                        high: bar.h,
-                        open: bar.o,
-                        close: bar.c,
-                        volume: bar.v,
-                        direction: bar.direction,
-                        pnl: bar.pnl,
-                        price_in: bar.price_in,
-                        price_out: bar.price_out,
-                        nbars: bar.nbars,
-                        prediction: bar.prediction
-                        // sma20: bar.sma_20
-                    }];
-                // }
+                    // if (bar.time >= from && bar.time < to) {
+                        backtests_data = [...backtests_data, {
+                            time: time, 
+                            low: bar.l,
+                            high: bar.h,
+                            open: bar.o,
+                            close: bar.c,
+                            volume: bar.v,
+                            direction: bar.direction,
+                            pnl: bar.pnl,
+                            price_in: bar.price_in,
+                            price_out: bar.price_out,
+                            nbars: bar.nbars,
+                            prediction: bar.prediction
+                            // sma20: bar.sma_20
+                        }];
+                    // }
 
-                    // console.log(bar.sma_20);
-            });
-            console.log(`[getBars]: returned ${bars.length} bar(s)`);
-            onHistoryCallback(backtests_data, { noData: false });
+                        // console.log(bar.sma_20);
+                });
+                console.log(`[getBars]: returned ${bars.length} bar(s)`);
+                onHistoryCallback(backtests_data, { noData: false });
+            }
             // if(c == 0) {
             //     onHistoryCallback(bars, { noData: false });
             //     ++c;
             // }
+            else {
+                data.forEach(bar => {
+                    let timestamp = new Date(bar.Timestamp);
+                    let time = Math.floor(timestamp.getTime());
+                    
+                    // if (i < 1) {
+                    //     console.log(time);
+                    //     ++i;
+                    // }
+
+                    // if (bar.time >= from && bar.time < to) {
+                        backtests_data = [...backtests_data, {
+                            time: time, 
+                            low: bar.l,
+                            high: bar.h,
+                            open: bar.o,
+                            close: bar.c,
+                            volume: bar.v,
+                            // direction: bar.direction,
+                            // pnl: bar.pnl,
+                            // price_in: bar.price_in,
+                            // price_out: bar.price_out,
+                            // nbars: bar.nbars,
+                            // prediction: bar.prediction
+                            match_or_no_match: bar.match_or_no_match
+                            // sma20: bar.sma_20
+                        }];
+                    // }
+
+                        // console.log(bar.sma_20);
+                });
+                console.log(`[getBars]: returned ${bars.length} bar(s)`);
+                onHistoryCallback(backtests_data, { noData: false });
+            }
 
         } catch (error) {
             console.log('[getBars]: Get error', error);
@@ -430,100 +466,117 @@ export default {
         console.log(backtests_data);
         // const data = await makeApiRequest();
         let i = 0;
-        backtests_data.forEach(bar => {
-            let predictionMarkObject;
+        if(!backtests_data[0].hasOwnProperty(match_or_no_match)) {
+            backtests_data.forEach(bar => {
+                let predictionMarkObject;
 
-             
-            if(bar.prediction == null) {
-                predictionMarkObject = {
-                    id: i++,
-                    time: bar.time / 1000,
-                    color: { border: '#c7c7c7', background: '#c7c7c7' },
-                    minSize: 2
+                
+                if(bar.prediction == null) {
+                    predictionMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        color: { border: '#c7c7c7', background: '#c7c7c7' },
+                        minSize: 2
+                    }
                 }
-            }
-            
-            else if(bar.prediction == 1) {
-                predictionMarkObject = {
-                    id: i++,
-                    time: bar.time / 1000,
-                    color: { border: '#000', background: '#fff' },
-                    minSize: 2
+                
+                else if(bar.prediction == 1) {
+                    predictionMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        color: { border: '#000', background: '#fff' },
+                        minSize: 2
+                    }
                 }
-            }
-            
-            else {
-                predictionMarkObject = {
-                    id: i++,
-                    time: bar.time / 1000,
-                    color: bar.prediction == 0 ? { border: '#b00000', background: '#b00000' } : 
-                                                { border: '#007818', background: '#007818' },
-                    minSize: 2
-                }
-            }
-
-            marks = [...marks, predictionMarkObject]
-
-            if(bar.direction != null) {
-                let markSize;
-
-                if(bar.pnl >= 0) {
-                    if(bar.pnl <= 5)
-                        markSize = 20;
-                    else if(bar.pnl <= 10)
-                        markSize = 24;
-                    else if(bar.pnl <= 15)
-                        markSize = 28;
-                    else if(bar.pnl <= 20)
-                        markSize = 32;
-                    else if(bar.pnl <= 25)
-                        markSize = 36;
-                    else if(bar.pnl <= 30)
-                        markSize = 40;
-                    else
-                        markSize = 44;
-                }
+                
                 else {
-                    if(bar.pnl >= -5)
-                        markSize = 20;
-                    else if(bar.pnl >= -10)
-                        markSize = 24;
-                    else if(bar.pnl >= -15)
-                        markSize = 28;
-                    else if(bar.pnl >= -20)
-                        markSize = 32;
-                    else if(bar.pnl >= -25)
-                        markSize = 36;
-                    else if(bar.pnl >= -30)
-                        markSize = 40;
-                    else
-                        markSize = 44;
+                    predictionMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        color: bar.prediction == 0 ? { border: '#b00000', background: '#b00000' } : 
+                                                    { border: '#007818', background: '#007818' },
+                        minSize: 2
+                    }
                 }
 
-                let hoverBoxText = `<p>PNL: ${bar.pnl}</p>` +
-                                    `<p>Price In: ${bar.price_in.toString()}</p>` +
-                                    `<p>Price Out: ${bar.price_out.toString()}</p>` +
-                                    `<p>nbars: ${bar.nbars}</p>`;
+                marks = [...marks, predictionMarkObject]
 
+                if(bar.direction != null) {
+                    let markSize;
+
+                    if(bar.pnl >= 0) {
+                        if(bar.pnl <= 5)
+                            markSize = 20;
+                        else if(bar.pnl <= 10)
+                            markSize = 24;
+                        else if(bar.pnl <= 15)
+                            markSize = 28;
+                        else if(bar.pnl <= 20)
+                            markSize = 32;
+                        else if(bar.pnl <= 25)
+                            markSize = 36;
+                        else if(bar.pnl <= 30)
+                            markSize = 40;
+                        else
+                            markSize = 44;
+                    }
+                    else {
+                        if(bar.pnl >= -5)
+                            markSize = 20;
+                        else if(bar.pnl >= -10)
+                            markSize = 24;
+                        else if(bar.pnl >= -15)
+                            markSize = 28;
+                        else if(bar.pnl >= -20)
+                            markSize = 32;
+                        else if(bar.pnl >= -25)
+                            markSize = 36;
+                        else if(bar.pnl >= -30)
+                            markSize = 40;
+                        else
+                            markSize = 44;
+                    }
+
+                    let hoverBoxText = `<p>PNL: ${bar.pnl}</p>` +
+                                        `<p>Price In: ${bar.price_in.toString()}</p>` +
+                                        `<p>Price Out: ${bar.price_out.toString()}</p>` +
+                                        `<p>nbars: ${bar.nbars}</p>`;
+
+                    let markObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        color: bar.pnl >= 0 ? 'green' : 'red',
+                        text:  hoverBoxText,
+                        label: bar.direction == 'long' ? 'L' : 'S',
+                        labelFontColor: '#ffffff',
+                        minSize: markSize 
+                    }
+
+                    marks = [...marks, markObject];
+                    
+                    // ++i;
+                    // console.log(marks);
+                }
+            });
+            i = 0;
+            onDataCallback(marks);
+            console.log(marks);
+        }
+        else {
+            backtests_data.forEach(bar => {
                 let markObject = {
                     id: i++,
                     time: bar.time / 1000,
-                    color: bar.pnl >= 0 ? 'green' : 'red',
-                    text:  hoverBoxText,
-                    label: bar.direction == 'long' ? 'L' : 'S',
-                    labelFontColor: '#ffffff',
-                    minSize: markSize 
+                    color: bar.match_or_no_match == 'No match!' ? 'red' : 'green',
+                    minSize: 2
                 }
 
                 marks = [...marks, markObject];
-                
-                // ++i;
-                // console.log(marks);
-            }
-        });
-        i = 0;
-        onDataCallback(marks);
-        console.log(marks);
+            })
+            i = 0;
+            onDataCallback(marks);
+            console.log(marks);
+        }
 
         // setTimeout(() => onDataCallback(marks, () => console.log("Hello")));
     },
