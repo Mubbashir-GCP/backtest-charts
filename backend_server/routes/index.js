@@ -97,14 +97,11 @@ router.get('/backtestData', cors(), async (req, res, next) => {
   })
   .catch(error => console.log(error.message));
   let response;
-  if(backtestId != '') {
+
+  if(req.query.hasOwnProperty('backtestId')) 
     response = await client.query(backtestQueryText, [backtestId]);
-    modelUniqueId = '';
-  }
-  else if(pktrQueryText != '') {
+  else if(req.query.hasOwnProperty('modelUniqueId'))
     response = await client.query(pktrQueryText, [modelUniqueId]);
-    backtestId = '';
-  }
   
   response.rows.forEach(row => {
     backtests_jsons = [... backtests_jsons, row.row_to_json]
