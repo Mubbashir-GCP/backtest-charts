@@ -11,6 +11,8 @@ let pktrQueryText = `with a1 as (select * from public.consolidated_results_pt
 select row_to_json(a1) from a1
 `
 
+let graphType;
+
 // let backtestID = '58432ade-6b17-11eb-98dc-0242ac1c0002';
 let modelUniqueId = '';
 let backtestId = '';
@@ -68,6 +70,7 @@ router.get('/backtestChart', cors(), (req, res, next) => {
   // console.log(req.body);
   console.log(req.query);
   backtestId = req.query.backtestId;
+  graphType = 'Backtest';
   console.log(backtestId);
   
   return res.redirect('http://localhost:5000');
@@ -82,6 +85,7 @@ router.get('/pktrChart', cors(), (req, res, next) => {
   // console.log(req.body);
   console.log(req.query);
   modelUniqueId = req.query.modelUniqueId;
+  graphType = 'Pktr'
   console.log(modelUniqueId);
   
   return res.redirect('http://localhost:5000');
@@ -98,9 +102,9 @@ router.get('/backtestData', cors(), async (req, res, next) => {
   .catch(error => console.log(error.message));
   let response;
 
-  if(req.query.hasOwnProperty('backtestId')) 
+  if(graphType == 'Backtest') 
     response = await client.query(backtestQueryText, [backtestId]);
-  else if(req.query.hasOwnProperty('modelUniqueId'))
+  else if(graphType == 'Pktr')
     response = await client.query(pktrQueryText, [modelUniqueId]);
   
   response.rows.forEach(row => {
