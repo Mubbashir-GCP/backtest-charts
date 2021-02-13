@@ -333,7 +333,6 @@ export default {
             // }
 
             // console.log(new Date('2021-01-19T09:35:00'));
-
             data.forEach(bar => {
                 let timestamp = new Date(bar.Timestamp);
                 let time = Math.floor(timestamp.getTime());
