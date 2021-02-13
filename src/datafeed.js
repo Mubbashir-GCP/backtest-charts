@@ -372,7 +372,7 @@ export default {
             // }
             else {
                 data.forEach(bar => {
-                    let timestamp = new Date(bar.Timestamp);
+                    let timestamp = new Date(bar.timestamps);
                     let time = Math.floor(timestamp.getTime());
                     
                     // if (i < 1) {
@@ -567,7 +567,7 @@ export default {
                 let markObject = {
                     id: i++,
                     time: bar.time / 1000,
-                    color: bar.match_or_no_match == 'No match!' ? 'red' : 'green',
+                    color: bar.match_or_no_match == 'No Match!' ? 'red' : 'green',
                     minSize: 2
                 }
 
