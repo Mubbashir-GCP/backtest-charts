@@ -493,8 +493,8 @@ export default {
                     predictionMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
-                        color: bar.prediction == 0 ? { border: '#b00000', background: '#b00000' } : 
-                                                    { border: '#007818', background: '#007818' },
+                        color: bar.prediction == 0 ? { border: '#b5651d', background: '#b5651d' } : 
+                                                    { border: '#00ccff', background: '#00ccff' },
                         minSize: 2
                     }
                 }
@@ -545,7 +545,8 @@ export default {
                     let markObject = {
                         id: i++,
                         time: bar.time / 1000,
-                        color: bar.pnl >= 0 ? 'green' : 'red',
+                        color: bar.pnl >= 0 ? { border: '#32cd32', background: '#32cd32' } : 
+                                              { border: '#dff280', background: '#dff280' },
                         text:  hoverBoxText,
                         label: bar.direction == 'long' ? 'L' : 'S',
                         labelFontColor: '#ffffff',
@@ -564,10 +565,43 @@ export default {
         }
         else {
             backtests_data.forEach(bar => {
+                let predictionMarkObject;
+
+                if(bar.prediction == null) {
+                    predictionMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        color: { border: '#c7c7c7', background: '#c7c7c7' },
+                        minSize: 2
+                    }
+                }
+                
+                else if(bar.prediction == 1) {
+                    predictionMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        color: { border: '#000', background: '#fff' },
+                        minSize: 2
+                    }
+                }
+                
+                else {
+                    predictionMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        color: bar.prediction == 0 ? { border: '#b5651d', background: '#b5651d' } : 
+                                                    { border: '#00ccff', background: '#00ccff' },
+                        minSize: 2
+                    }
+                }
+
+                marks = [...marks, predictionMarkObject]
+
                 let markObject = {
                     id: i++,
                     time: bar.time / 1000,
-                    color: bar.match_or_no_match == 'No Match!' ? 'red' : 'green',
+                    color: bar.match_or_no_match == 'No Match!' ? { border: '#dff280', background: '#dff280' } : 
+                                                                  { border: '#32cd32', background: '#32cd32' },
                     minSize: 2
                 }
 
