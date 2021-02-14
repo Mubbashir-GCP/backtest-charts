@@ -546,7 +546,7 @@ export default {
                         id: i++,
                         time: bar.time / 1000,
                         color: bar.pnl >= 0 ? { border: '#32cd32', background: '#32cd32' } : 
-                                              { border: '#dff280', background: '#dff280' },
+                                              { border: '#d63c2d', background: '#d63c2d' },
                         text:  hoverBoxText,
                         label: bar.direction == 'long' ? 'L' : 'S',
                         labelFontColor: '#ffffff',
@@ -600,7 +600,7 @@ export default {
                 let markObject = {
                     id: i++,
                     time: bar.time / 1000,
-                    color: bar.match_or_no_match == 'No Match!' ? { border: '#dff280', background: '#dff280' } : 
+                    color: bar.match_or_no_match == 'No Match!' ? { border: '#d63c2d', background: '#d63c2d' } : 
                                                                   { border: '#32cd32', background: '#32cd32' },
                     minSize: 2
                 }
