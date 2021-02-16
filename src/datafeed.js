@@ -5,6 +5,15 @@ let c = 0;
 let backtests_data = [];
 const lastBarsCache = new Map();
 
+const getPredictionInIntegerFormat = (predictedLabel) => {
+    if(predictedLabel >= 0.0 && predictedLabel < 0.5)
+        return 0;
+    else if(predictedLabel >= 0.5 && predictedLabel < 1.5)
+        return 1;
+    else
+        return 2;
+}
+
 // const configurationData = {
 //     supported_resolutions: ['1D'],
 //     exchanges: [
@@ -393,7 +402,7 @@ export default {
                             // price_in: bar.price_in,
                             // price_out: bar.price_out,
                             // nbars: bar.nbars,
-                            // prediction: bar.prediction
+                            prediction: getPredictionInIntegerFormat(bar.predicted_labels),
                             match_or_no_match: bar.match_or_no_match
                             // sma20: bar.sma_20
                         }];
