@@ -10,8 +10,10 @@ const getPredictionInIntegerFormat = (predictedLabel) => {
         return 0;
     else if(predictedLabel >= 0.5 && predictedLabel < 1.5)
         return 1;
-    else
+    else if(predictedLabel >= 1.5 && predictedLabel < 2.5)
         return 2;
+    else 
+        return 3;
 }
 
 // const configurationData = {
@@ -581,6 +583,17 @@ export default {
                         id: i++,
                         time: bar.time / 1000,
                         color: { border: '#c7c7c7', background: '#c7c7c7' },
+                        text: `<p>Prediction: ${bar.prediction}</p>`,
+                        minSize: 2
+                    }
+                }
+
+                else if(bar.prediction == 0) {
+                    predictionMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        color: { border: '#654321', background: '#654321' },
+                        text: `<p>Prediction: ${bar.prediction}</p>`,
                         minSize: 2
                     }
                 }
@@ -589,7 +602,27 @@ export default {
                     predictionMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
-                        color: { border: '#000', background: '#fff' },
+                        color: { border: '#b5651d', background: '#b5651d' },
+                        minSize: 2
+                    }
+                }
+
+                else if(bar.prediction == 2) {
+                    predictionMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        text: `<p>Prediction: ${bar.prediction}</p>`,
+                        color: { border: '#00ccff', background: '#00ccff' },
+                        minSize: 2
+                    }
+                }
+
+                else if(bar.prediction == 3) {
+                    predictionMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        color: { border: '#0000a0', background: '#0000a0' },
+                        text: `<p>Prediction: ${bar.prediction}</p>`,
                         minSize: 2
                     }
                 }
@@ -598,8 +631,8 @@ export default {
                     predictionMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
-                        color: bar.prediction == 0 ? { border: '#b5651d', background: '#b5651d' } : 
-                                                    { border: '#00ccff', background: '#00ccff' },
+                        color:  { border: '#000', background: '#fff' } ,
+                        text: `<p>Prediction: ${bar.prediction}</p>`,
                         minSize: 2
                     }
                 }
@@ -611,6 +644,7 @@ export default {
                     time: bar.time / 1000,
                     color: bar.match_or_no_match == 'No Match!' ? { border: '#d63c2d', background: '#d63c2d' } : 
                                                                   { border: '#32cd32', background: '#32cd32' },
+                    text: `<p>Prediction: ${bar.match_or_no_match}</p>`,
                     minSize: 2
                 }
 
