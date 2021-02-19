@@ -66,18 +66,18 @@ export default {
                 data.forEach(bar => {
                     let timestamp = new Date(bar.timestamps);
                     let time = Math.floor(timestamp.getTime());
-                });
 
-                backtests_data = [...backtests_data, {
-                    time: time, 
-                    low: bar.l,
-                    high: bar.h,
-                    open: bar.o,
-                    close: bar.c,
-                    volume: bar.v,
-                    prediction: bar.actual_labels,
-                    match_or_no_match: bar.match_or_no_match
-                }];
+                    backtests_data = [...backtests_data, {
+                        time: time, 
+                        low: bar.l,
+                        high: bar.h,
+                        open: bar.o,
+                        close: bar.c,
+                        volume: bar.v,
+                        prediction: bar.actual_labels,
+                        match_or_no_match: bar.match_or_no_match
+                    }];
+                });
             }
 
             console.log(`[getBars]: returned ${bars.length} bar(s)`);
