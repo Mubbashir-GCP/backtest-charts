@@ -209,7 +209,7 @@ export default {
                     predictionMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
-                        color: { border: '#654321', background: '#654321' },
+                        color: { border: '#966330', background: '#966330' },
                         text: `<p>Actual Label: ${bar.prediction}</p>`,
                         minSize: 2
                     }

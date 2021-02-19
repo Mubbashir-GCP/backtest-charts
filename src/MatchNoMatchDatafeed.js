@@ -86,7 +86,9 @@ export default {
                                                               { border: '#32cd32', background: '#32cd32' },
                 text: `<p>${bar.match_or_no_match}</p>`,
                 minSize: 2
-            }            
+            }
+            
+            marks = [...marks, markObject];
         });
 
         i = 0;
