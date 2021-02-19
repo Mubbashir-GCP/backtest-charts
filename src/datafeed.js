@@ -602,7 +602,7 @@ export default {
                     predictionMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
-                        color: { border: '#d1741f', background: '#d1741f' },
+                        color: { border: '#e2af80', background: '#e2af80' },
                         text: `<p>Prediction: ${bar.prediction}</p>`,
                         minSize: 2
                     }

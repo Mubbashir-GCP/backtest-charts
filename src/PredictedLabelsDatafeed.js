@@ -52,7 +52,7 @@ export default {
                     open: bar.o,
                     close: bar.c,
                     volume: bar.v,
-                    prediction: bar.actual_labels,
+                    prediction: bar.predicted_labels,
                 }];
             });
 
@@ -86,7 +86,7 @@ export default {
                     id: i++,
                     time: bar.time / 1000,
                     color: { border: '#c7c7c7', background: '#c7c7c7' },
-                    text: `<p>Actual Label: ${bar.prediction}</p>`,
+                    text: `<p>Prediction: ${bar.prediction}</p>`,
                     minSize: 2
                 }
             }
@@ -96,7 +96,7 @@ export default {
                     id: i++,
                     time: bar.time / 1000,
                     color: { border: '#654321', background: '#654321' },
-                    text: `<p>Actual Label: ${bar.prediction}</p>`,
+                    text: `<p>Prediction: ${bar.prediction}</p>`,
                     minSize: 2
                 }
             }
@@ -106,7 +106,7 @@ export default {
                     id: i++,
                     time: bar.time / 1000,
                     color: { border: '#e2af80', background: '#e2af80' },
-                    text: `<p>Actual Label: ${bar.prediction}</p>`,
+                    text: `<p>Prediction: ${bar.prediction}</p>`,
                     minSize: 2
                 }
             }
@@ -115,7 +115,7 @@ export default {
                 predictionMarkObject = {
                     id: i++,
                     time: bar.time / 1000,
-                    text: `<p>Actual Label: ${bar.prediction}</p>`,
+                    text: `<p>Prediction: ${bar.prediction}</p>`,
                     color: { border: '#00ccff', background: '#00ccff' },
                     minSize: 2
                 }
@@ -126,7 +126,7 @@ export default {
                     id: i++,
                     time: bar.time / 1000,
                     color: { border: '#0000a0', background: '#0000a0' },
-                    text: `<p>Actual Label: ${bar.prediction}</p>`,
+                    text: `<p>Prediction: ${bar.prediction}</p>`,
                     minSize: 2
                 }
             }
@@ -136,7 +136,7 @@ export default {
                     id: i++,
                     time: bar.time / 1000,
                     color:  { border: '#000', background: '#fff' } ,
-                    text: `<p>Actual Label: ${bar.prediction}</p>`,
+                    text: `<p>Prediction: ${bar.prediction}</p>`,
                     minSize: 2
                 }
             }

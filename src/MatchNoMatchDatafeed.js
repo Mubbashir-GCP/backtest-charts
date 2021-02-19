@@ -52,7 +52,7 @@ export default {
                     open: bar.o,
                     close: bar.c,
                     volume: bar.v,
-                    prediction: bar.actual_labels,
+                    match_or_no_match: bar.match_or_no_match,
                 }];
             });
 
@@ -79,69 +79,14 @@ export default {
         let i = 0;
 
         backtests_data.forEach(bar => {
-            let predictionMarkObject;
-
-            if(bar.prediction == null) {
-                predictionMarkObject = {
-                    id: i++,
-                    time: bar.time / 1000,
-                    color: { border: '#c7c7c7', background: '#c7c7c7' },
-                    text: `<p>Actual Label: ${bar.prediction}</p>`,
-                    minSize: 2
-                }
-            }
-
-            else if(bar.prediction == 0) {
-                predictionMarkObject = {
-                    id: i++,
-                    time: bar.time / 1000,
-                    color: { border: '#654321', background: '#654321' },
-                    text: `<p>Actual Label: ${bar.prediction}</p>`,
-                    minSize: 2
-                }
-            }
-            
-            else if(bar.prediction == 1) {
-                predictionMarkObject = {
-                    id: i++,
-                    time: bar.time / 1000,
-                    color: { border: '#e2af80', background: '#e2af80' },
-                    text: `<p>Actual Label: ${bar.prediction}</p>`,
-                    minSize: 2
-                }
-            }
-
-            else if(bar.prediction == 2) {
-                predictionMarkObject = {
-                    id: i++,
-                    time: bar.time / 1000,
-                    text: `<p>Actual Label: ${bar.prediction}</p>`,
-                    color: { border: '#00ccff', background: '#00ccff' },
-                    minSize: 2
-                }
-            }
-
-            else if(bar.prediction == 3) {
-                predictionMarkObject = {
-                    id: i++,
-                    time: bar.time / 1000,
-                    color: { border: '#0000a0', background: '#0000a0' },
-                    text: `<p>Actual Label: ${bar.prediction}</p>`,
-                    minSize: 2
-                }
-            }
-            
-            else {
-                predictionMarkObject = {
-                    id: i++,
-                    time: bar.time / 1000,
-                    color:  { border: '#000', background: '#fff' } ,
-                    text: `<p>Actual Label: ${bar.prediction}</p>`,
-                    minSize: 2
-                }
-            }
-
-            marks = [...marks, predictionMarkObject]
+            let markObject = {
+                id: i++,
+                time: bar.time / 1000,
+                color: bar.match_or_no_match == 'No Match!' ? { border: '#d63c2d', background: '#d63c2d' } : 
+                                                              { border: '#32cd32', background: '#32cd32' },
+                text: `<p>${bar.match_or_no_match}</p>`,
+                minSize: 2
+            }            
         });
 
         i = 0;
