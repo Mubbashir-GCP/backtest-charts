@@ -17,29 +17,7 @@ let graphType;
 let modelUniqueId = '';
 let backtestId = '';
 let backtestQueryText = `with a1 as (
-  select distinct
-  "Timestamp"
-  ,o
-  ,h
-  ,l
-  ,c
-  ,v
-  ,date_in
-  ,date_out
-  ,price_in
-  ,price_out
-  ,direction
-  ,pnl
-  ,pnl_pct
-  ,cum_pnl
-  ,nbars
-  ,prediction
-  from public.view_for_backtest_charts 
-  where backtest_id= $1 
-  and "Timestamp" > (select min(date_trunc('day',date_in)) from view_for_backtest_charts where backtest_id= $1)
-  and "Timestamp" < (select max(date_trunc('day',date_in)) from view_for_backtest_charts where backtest_id= $1)
-  order by "Timestamp" asc)
-
+  select * from get_chart_data($1))
 
   select row_to_json(a1) from a1`
 
