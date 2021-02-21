@@ -17,7 +17,7 @@ let graphType;
 let modelUniqueId = '';
 let backtestId = '';
 let backtestQueryText = `with a1 as (
-  select distinct * from get_chart_data($1))
+  select distinct * from get_chart_data($1) order by timestamp_ asc )
 
   select row_to_json(a1) from a1`
 
