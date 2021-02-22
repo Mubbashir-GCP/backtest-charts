@@ -1,5 +1,16 @@
 import { makeApiRequest } from './helpers.js';
 
+const getPredictionInIntegerFormat = (predictedLabel) => {
+    if(predictedLabel >= 0.0 && predictedLabel < 0.5)
+        return 0;
+    else if(predictedLabel >= 0.5 && predictedLabel < 1.5)
+        return 1;
+    else if(predictedLabel >= 1.5 && predictedLabel < 2.5)
+        return 2;
+    else 
+        return 3;
+}
+
 let backtests_data = [];
 
 const symbolInfo = {
@@ -91,7 +102,7 @@ export default {
                 }
             }
 
-            else if(bar.prediction == 0) {
+            else if(getPredictionInIntegerFormat(bar.prediction) == 0) {
                 predictionMarkObject = {
                     id: i++,
                     time: bar.time / 1000,
@@ -101,7 +112,7 @@ export default {
                 }
             }
             
-            else if(bar.prediction == 1) {
+            else if(getPredictionInIntegerFormat(bar.prediction) == 1) {
                 predictionMarkObject = {
                     id: i++,
                     time: bar.time / 1000,
@@ -111,7 +122,7 @@ export default {
                 }
             }
 
-            else if(bar.prediction == 2) {
+            else if(getPredictionInIntegerFormat(bar.prediction) == 2) {
                 predictionMarkObject = {
                     id: i++,
                     time: bar.time / 1000,
@@ -121,7 +132,7 @@ export default {
                 }
             }
 
-            else if(bar.prediction == 3) {
+            else if(getPredictionInIntegerFormat(bar.prediction) == 3) {
                 predictionMarkObject = {
                     id: i++,
                     time: bar.time / 1000,
