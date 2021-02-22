@@ -204,70 +204,6 @@ export default {
         }
         else {
             backtests_data.forEach(bar => {
-                let actualLabelMarkObject;
-
-                if(bar.actual_labels == null) {
-                    actualLabelMarkObject = {
-                        id: i++,
-                        time: bar.time / 1000,
-                        color: { border: '#c7c7c7', background: '#c7c7c7' },
-                        text: `<p>Actual Label: ${bar.actual_labels}</p>`,
-                        minSize: 2
-                    }
-                }
-
-                else if(getPredictionInIntegerFormat(bar.actual_labels) == 0) {
-                    actualLabelMarkObject = {
-                        id: i++,
-                        time: bar.time / 1000,
-                        color: { border: '#966330', background: '#966330' },
-                        text: `<p>Actual Label: ${bar.actual_labels}</p>`,
-                        minSize: 2
-                    }
-                }
-                
-                else if(getPredictionInIntegerFormat(bar.actual_labels) == 1) {
-                    actualLabelMarkObject = {
-                        id: i++,
-                        time: bar.time / 1000,
-                        color: { border: '#e2af80', background: '#e2af80' },
-                        text: `<p>Actual Label: ${bar.actual_labels}</p>`,
-                        minSize: 2
-                    }
-                }
-
-                else if(getPredictionInIntegerFormat(bar.actual_labels) == 2) {
-                    actualLabelMarkObject = {
-                        id: i++,
-                        time: bar.time / 1000,
-                        text: `<p>Actual Label: ${bar.actual_labels}</p>`,
-                        color: { border: '#00ccff', background: '#00ccff' },
-                        minSize: 2
-                    }
-                }
-
-                else if(getPredictionInIntegerFormat(bar.actual_labels) == 3) {
-                    actualLabelMarkObject = {
-                        id: i++,
-                        time: bar.time / 1000,
-                        color: { border: '#0000a0', background: '#0000a0' },
-                        text: `<p>Actual Label: ${bar.actual_labels}</p>`,
-                        minSize: 2
-                    }
-                }
-                
-                else {
-                    actualLabelMarkObject = {
-                        id: i++,
-                        time: bar.time / 1000,
-                        color:  { border: '#000', background: '#fff' } ,
-                        text: `<p>Actual Label: ${bar.actual_labels}</p>`,
-                        minSize: 2
-                    }
-                }
-
-                marks = [...marks, actualLabelMarkObject]
-
                 let predictedLabelMarkObject;
                 
                 if(bar.predicted_labels == null) {
@@ -331,6 +267,70 @@ export default {
                 }
 
                 marks = [...marks, predictedLabelMarkObject];
+
+                let actualLabelMarkObject;
+
+                if(bar.actual_labels == null) {
+                    actualLabelMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        color: { border: '#c7c7c7', background: '#c7c7c7' },
+                        text: `<p>Actual Label: ${bar.actual_labels}</p>`,
+                        minSize: 2
+                    }
+                }
+
+                else if(getPredictionInIntegerFormat(bar.actual_labels) == 0) {
+                    actualLabelMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        color: { border: '#966330', background: '#966330' },
+                        text: `<p>Actual Label: ${bar.actual_labels}</p>`,
+                        minSize: 2
+                    }
+                }
+                
+                else if(getPredictionInIntegerFormat(bar.actual_labels) == 1) {
+                    actualLabelMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        color: { border: '#e2af80', background: '#e2af80' },
+                        text: `<p>Actual Label: ${bar.actual_labels}</p>`,
+                        minSize: 2
+                    }
+                }
+
+                else if(getPredictionInIntegerFormat(bar.actual_labels) == 2) {
+                    actualLabelMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        text: `<p>Actual Label: ${bar.actual_labels}</p>`,
+                        color: { border: '#00ccff', background: '#00ccff' },
+                        minSize: 2
+                    }
+                }
+
+                else if(getPredictionInIntegerFormat(bar.actual_labels) == 3) {
+                    actualLabelMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        color: { border: '#0000a0', background: '#0000a0' },
+                        text: `<p>Actual Label: ${bar.actual_labels}</p>`,
+                        minSize: 2
+                    }
+                }
+                
+                else {
+                    actualLabelMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        color:  { border: '#000', background: '#fff' } ,
+                        text: `<p>Actual Label: ${bar.actual_labels}</p>`,
+                        minSize: 2
+                    }
+                }
+
+                marks = [...marks, actualLabelMarkObject]
             });
         }
         

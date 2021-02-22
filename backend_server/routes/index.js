@@ -51,7 +51,7 @@ router.get('/backtestChart', cors(), (req, res, next) => {
   graphType = 'Backtest';
   console.log(backtestId);
   
-  return res.redirect('http://localhost:5000');
+  return res.redirect('http://localhost:5000?backtestId=' + backtestId);
 });
 
 router.get('/pktrChart', cors(), (req, res, next) => {
@@ -66,7 +66,7 @@ router.get('/pktrChart', cors(), (req, res, next) => {
   graphType = 'Pktr'
   console.log(modelUniqueId);
   
-  return res.redirect('http://localhost:5000');
+  return res.redirect('http://localhost:5000?modelUniqueId=' + modelUniqueId);
 });
 
 router.get('/backtestData', cors(), async (req, res, next) => {
