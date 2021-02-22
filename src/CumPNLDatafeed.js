@@ -91,7 +91,7 @@ export default {
                 });
             }
 
-            console.log(`[getBars]: returned ${bars.length} bar(s)`);
+            console.log(`[getBars]: returned ${backtests_data.length} bar(s)`);
             onHistoryCallback(backtests_data, { noData: false });
         } catch (error) {
             console.log('[getBars]: Get error', error);
@@ -336,6 +336,7 @@ export default {
         
         i = 0;
         onDataCallback(marks);
+        marks = [];
         console.log(marks);
     },
 }
