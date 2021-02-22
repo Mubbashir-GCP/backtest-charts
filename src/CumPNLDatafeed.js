@@ -54,7 +54,7 @@ export default {
 
             if(!data[0].hasOwnProperty('match_or_no_match')) {
                 data.forEach(bar => {
-                    let timestamp = new Date(bar.Timestamp);
+                    let timestamp = new Date(bar.timestamp_);
                     let time = Math.floor(timestamp.getTime());
                     
                     backtests_data = [...backtests_data, {

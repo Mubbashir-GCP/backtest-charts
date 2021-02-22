@@ -346,7 +346,7 @@ export default {
             // console.log(new Date('2021-01-19T09:35:00'));
             if(!data[0].hasOwnProperty('match_or_no_match')) {
                 data.forEach(bar => {
-                    let timestamp = new Date(bar.Timestamp);
+                    let timestamp = new Date(bar.timestamp_);
                     let time = Math.floor(timestamp.getTime());
                     
                     // if (i < 1) {
