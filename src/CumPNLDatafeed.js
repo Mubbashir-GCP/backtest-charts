@@ -1,5 +1,15 @@
 import { makeApiRequest } from './helpers.js';
 
+const getPredictionInIntegerFormat = (predictedLabel) => {
+    if(predictedLabel >= 0.0 && predictedLabel < 0.5)
+        return 0;
+    else if(predictedLabel >= 0.5 && predictedLabel < 1.5)
+        return 1;
+    else if(predictedLabel >= 1.5 && predictedLabel < 2.5)
+        return 2;
+    else 
+        return 3;
+}
 
 let backtests_data = [];
 
@@ -74,7 +84,8 @@ export default {
                         open: bar.o,
                         close: bar.c,
                         volume: bar.v,
-                        prediction: bar.actual_labels,
+                        actual_labels: bar.actual_labels,
+                        predicted_labels: bar.predicted_labels,
                         match_or_no_match: bar.match_or_no_match
                     }];
                 });
@@ -193,80 +204,133 @@ export default {
         }
         else {
             backtests_data.forEach(bar => {
-                let predictionMarkObject;
+                let actualLabelMarkObject;
 
-                if(bar.prediction == null) {
-                    predictionMarkObject = {
+                if(bar.actual_labels == null) {
+                    actualLabelMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
                         color: { border: '#c7c7c7', background: '#c7c7c7' },
-                        text: `<p>Actual Label: ${bar.prediction}</p>`,
+                        text: `<p>Actual Label: ${bar.actual_labels}</p>`,
                         minSize: 2
                     }
                 }
 
-                else if(bar.prediction == 0) {
-                    predictionMarkObject = {
+                else if(getPredictionInIntegerFormat(bar.actual_labels) == 0) {
+                    actualLabelMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
                         color: { border: '#966330', background: '#966330' },
-                        text: `<p>Actual Label: ${bar.prediction}</p>`,
+                        text: `<p>Actual Label: ${bar.actual_labels}</p>`,
                         minSize: 2
                     }
                 }
                 
-                else if(bar.prediction == 1) {
-                    predictionMarkObject = {
+                else if(getPredictionInIntegerFormat(bar.actual_labels) == 1) {
+                    actualLabelMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
                         color: { border: '#e2af80', background: '#e2af80' },
-                        text: `<p>Actual Label: ${bar.prediction}</p>`,
+                        text: `<p>Actual Label: ${bar.actual_labels}</p>`,
                         minSize: 2
                     }
                 }
 
-                else if(bar.prediction == 2) {
-                    predictionMarkObject = {
+                else if(getPredictionInIntegerFormat(bar.actual_labels) == 2) {
+                    actualLabelMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
-                        text: `<p>Actual Label: ${bar.prediction}</p>`,
+                        text: `<p>Actual Label: ${bar.actual_labels}</p>`,
                         color: { border: '#00ccff', background: '#00ccff' },
                         minSize: 2
                     }
                 }
 
-                else if(bar.prediction == 3) {
-                    predictionMarkObject = {
+                else if(getPredictionInIntegerFormat(bar.actual_labels) == 3) {
+                    actualLabelMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
                         color: { border: '#0000a0', background: '#0000a0' },
-                        text: `<p>Actual Label: ${bar.prediction}</p>`,
+                        text: `<p>Actual Label: ${bar.actual_labels}</p>`,
                         minSize: 2
                     }
                 }
                 
                 else {
-                    predictionMarkObject = {
+                    actualLabelMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
                         color:  { border: '#000', background: '#fff' } ,
-                        text: `<p>Actual Label: ${bar.prediction}</p>`,
+                        text: `<p>Actual Label: ${bar.actual_labels}</p>`,
                         minSize: 2
                     }
                 }
 
-                marks = [...marks, predictionMarkObject]
+                marks = [...marks, actualLabelMarkObject]
 
-                let markObject = {
-                    id: i++,
-                    time: bar.time / 1000,
-                    color: bar.match_or_no_match == 'No Match!' ? { border: '#d63c2d', background: '#d63c2d' } : 
-                                                                  { border: '#32cd32', background: '#32cd32' },
-                    text: `<p>${bar.match_or_no_match}</p>`,
-                    minSize: 2
+                let predictedLabelMarkObject;
+                
+                if(bar.predicted_labels == null) {
+                    predictedLabelMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        color: { border: '#c7c7c7', background: '#c7c7c7' },
+                        text: `<p>Predicted Label: ${bar.predicted_labels}</p>`,
+                        minSize: 2
+                    }
                 }
 
-                marks = [...marks, markObject];
+                else if(getPredictionInIntegerFormat(bar.predicted_labels) == 0) {
+                    predictedLabelMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        color: { border: '#966330', background: '#966330' },
+                        text: `<p>Predicted Label: ${bar.predicted_labels}</p>`,
+                        minSize: 2
+                    }
+                }
+                
+                else if(getPredictionInIntegerFormat(bar.predicted_labels) == 1) {
+                    predictedLabelMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        color: { border: '#e2af80', background: '#e2af80' },
+                        text: `<p>Predicted Label: ${bar.predicted_labels}</p>`,
+                        minSize: 2
+                    }
+                }
+
+                else if(getPredictionInIntegerFormat(bar.predicted_labels) == 2) {
+                    predictedLabelMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        text: `<p>Predicted Label: ${bar.predicted_labels}</p>`,
+                        color: { border: '#00ccff', background: '#00ccff' },
+                        minSize: 2
+                    }
+                }
+
+                else if(getPredictionInIntegerFormat(bar.predicted_labels) == 3) {
+                    predictedLabelMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        color: { border: '#0000a0', background: '#0000a0' },
+                        text: `<p>Predicted Label: ${bar.predicted_labels}</p>`,
+                        minSize: 2
+                    }
+                }
+                
+                else {
+                    predictedLabelMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        color:  { border: '#000', background: '#fff' } ,
+                        text: `<p>Predicted Label: ${bar.predicted_labels}</p>`,
+                        minSize: 2
+                    }
+                }
+
+                marks = [...marks, predictedLabelMarkObject];
             });
         }
         
