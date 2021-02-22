@@ -412,7 +412,7 @@ export default {
 
                         // console.log(bar.sma_20);
                 });
-                console.log(`[getBars]: returned ${bars.length} bar(s)`);
+                console.log(`[getBars]: returned ${backtests_data.length} bar(s)`);
                 onHistoryCallback(backtests_data, { noData: false });
             }
 
@@ -473,7 +473,7 @@ export default {
     getMarks: async (symbolInfo, from, to, onDataCallback, resolution) => {
         console.log('[getMarks]: Method call');
 
-        let marks = [];
+        // let marks = [];
         console.log(backtests_data);
         // const data = await makeApiRequest();
         let i = 0;
@@ -653,7 +653,7 @@ export default {
             })
             i = 0;
             onDataCallback(marks);
-            backtests_data = [];
+            marks = [];
             console.log(marks);
         }
 
