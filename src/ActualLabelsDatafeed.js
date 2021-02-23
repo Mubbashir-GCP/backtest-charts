@@ -52,7 +52,7 @@ export default {
         try {
             const data = await makeApiRequest();
 
-            data.forEach(bar => {
+            if(data[0].hasOwnProperty('missed_opportunities')) {
                 let timestamp = new Date(bar.timestamps);
                 let time = Math.floor(timestamp.getTime());
 
@@ -63,12 +63,34 @@ export default {
                     open: bar.o,
                     close: bar.c,
                     volume: bar.v,
-                    prediction: bar.actual_labels,
+                    prediction: bar.predicted_labels,
+                    match_or_no_match: bar.match_or_no_match,
+                    missed_opportunities: bar.missed_opportunities
                 }];
-            });
 
-            console.log(`[getBars]: returned ${bars.length} bar(s)`);
-            onHistoryCallback(backtests_data, { noData: false });
+                console.log(`[getBars]: returned ${backtests_data.length} bar(s)`);
+                onHistoryCallback(backtests_data, { noData: false });
+            }
+
+            else {
+                data.forEach(bar => {
+                    let timestamp = new Date(bar.timestamps);
+                    let time = Math.floor(timestamp.getTime());
+    
+                    backtests_data = [...backtests_data, {
+                        time: time, 
+                        low: bar.l,
+                        high: bar.h,
+                        open: bar.o,
+                        close: bar.c,
+                        volume: bar.v,
+                        prediction: bar.actual_labels,
+                    }];
+                });
+    
+                console.log(`[getBars]: returned ${bars.length} bar(s)`);
+                onHistoryCallback(backtests_data, { noData: false });
+            }
         }
         catch (error) {
             console.log('[getBars]: Get error', error);
@@ -89,75 +111,141 @@ export default {
         console.log(backtests_data);
         let i = 0;
 
-        backtests_data.forEach(bar => {
-            let predictionMarkObject;
+        if(backtests_data[0].hasOwnProperty('missed_opportunities')) {
+            backtests_data.forEach(bar => {
+                let predictionMarkObject;
 
-            if(bar.prediction == null || bar.prediction == 0.0000123) {
-                predictionMarkObject = {
+                if(bar.prediction == null || bar.prediction == 0.0000123) {
+                    predictionMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        color: { border: '#c7c7c7', background: '#c7c7c7' },
+                        text: `<p>Prediction: ${bar.prediction}</p>`,
+                        minSize: 2
+                    }
+                }
+
+                else if(getPredictionInIntegerFormat(bar.prediction) == 0) {
+                    predictionMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        color: { border: '#966330', background: '#966330' },
+                        text: `<p>Prediction: ${bar.prediction}</p>`,
+                        minSize: 2
+                    }
+                }
+                
+                else if(getPredictionInIntegerFormat(bar.prediction) == 1) {
+                    predictionMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        color: { border: '#000', background: '#fff' },
+                        text: `<p>Prediction: ${bar.prediction}</p>`,
+                        minSize: 2
+                    }
+                }
+
+                else if(getPredictionInIntegerFormat(bar.prediction) == 2) {
+                    predictionMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        text: `<p>Prediction: ${bar.prediction}</p>`,
+                        color: { border: '#0000a0', background: '#0000a0' },
+                        minSize: 2
+                    }
+                }
+
+                marks = [...marks, predictionMarkObject]
+
+                let markObject = {
                     id: i++,
                     time: bar.time / 1000,
-                    color: { border: '#c7c7c7', background: '#c7c7c7' },
-                    text: `<p>Actual Label: ${bar.prediction}</p>`,
+                    color: bar.match_or_no_match == 'No Match!' ? { border: '#d63c2d', background: '#d63c2d' } : 
+                                                                  { border: '#32cd32', background: '#32cd32' },
+                    text: `<p>${bar.match_or_no_match}</p>`,
                     minSize: 2
                 }
-            }
 
-            else if(getPredictionInIntegerFormat(bar.prediction) == 0) {
-                predictionMarkObject = {
-                    id: i++,
-                    time: bar.time / 1000,
-                    color: { border: '#966330', background: '#966330' },
-                    text: `<p>Actual Label: ${bar.prediction}</p>`,
-                    minSize: 2
-                }
-            }
-            
-            else if(getPredictionInIntegerFormat(bar.prediction) == 1) {
-                predictionMarkObject = {
-                    id: i++,
-                    time: bar.time / 1000,
-                    color: { border: '#e2af80', background: '#e2af80' },
-                    text: `<p>Actual Label: ${bar.prediction}</p>`,
-                    minSize: 2
-                }
-            }
+                marks = [...marks, markObject];
+            })
+            i = 0;
+            onDataCallback(marks);
+            backtests_data = [];
+            console.log(marks);
+        }
 
-            else if(getPredictionInIntegerFormat(bar.prediction) == 2) {
-                predictionMarkObject = {
-                    id: i++,
-                    time: bar.time / 1000,
-                    text: `<p>Actual Label: ${bar.prediction}</p>`,
-                    color: { border: '#00ccff', background: '#00ccff' },
-                    minSize: 2
-                }
-            }
+        else {
 
-            else if(getPredictionInIntegerFormat(bar.prediction) == 3) {
-                predictionMarkObject = {
-                    id: i++,
-                    time: bar.time / 1000,
-                    color: { border: '#0000a0', background: '#0000a0' },
-                    text: `<p>Actual Label: ${bar.prediction}</p>`,
-                    minSize: 2
-                }
-            }
-            
-            else {
-                predictionMarkObject = {
-                    id: i++,
-                    time: bar.time / 1000,
-                    color:  { border: '#000', background: '#fff' } ,
-                    text: `<p>Actual Label: ${bar.prediction}</p>`,
-                    minSize: 2
-                }
-            }
+            backtests_data.forEach(bar => {
+                let predictionMarkObject;
 
-            marks = [...marks, predictionMarkObject]
-        });
+                if(bar.prediction == null || bar.prediction == 0.0000123) {
+                    predictionMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        color: { border: '#c7c7c7', background: '#c7c7c7' },
+                        text: `<p>Actual Label: ${bar.prediction}</p>`,
+                        minSize: 2
+                    }
+                }
 
-        i = 0;
-        onDataCallback(marks);
-        backtests_data = [];
-        console.log(marks);
+                else if(getPredictionInIntegerFormat(bar.prediction) == 0) {
+                    predictionMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        color: { border: '#966330', background: '#966330' },
+                        text: `<p>Actual Label: ${bar.prediction}</p>`,
+                        minSize: 2
+                    }
+                }
+                
+                else if(getPredictionInIntegerFormat(bar.prediction) == 1) {
+                    predictionMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        color: { border: '#e2af80', background: '#e2af80' },
+                        text: `<p>Actual Label: ${bar.prediction}</p>`,
+                        minSize: 2
+                    }
+                }
+
+                else if(getPredictionInIntegerFormat(bar.prediction) == 2) {
+                    predictionMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        text: `<p>Actual Label: ${bar.prediction}</p>`,
+                        color: { border: '#00ccff', background: '#00ccff' },
+                        minSize: 2
+                    }
+                }
+
+                else if(getPredictionInIntegerFormat(bar.prediction) == 3) {
+                    predictionMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        color: { border: '#0000a0', background: '#0000a0' },
+                        text: `<p>Actual Label: ${bar.prediction}</p>`,
+                        minSize: 2
+                    }
+                }
+                
+                else {
+                    predictionMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        color:  { border: '#000', background: '#fff' } ,
+                        text: `<p>Actual Label: ${bar.prediction}</p>`,
+                        minSize: 2
+                    }
+                }
+
+                marks = [...marks, predictionMarkObject]
+            });
+
+            i = 0;
+            onDataCallback(marks);
+            backtests_data = [];
+            console.log(marks);
+        }
     }
 }
