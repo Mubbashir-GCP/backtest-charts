@@ -206,7 +206,7 @@ export default {
             backtests_data.forEach(bar => {
                 let predictedLabelMarkObject;
                 
-                if(bar.predicted_labels == null) {
+                if(bar.predicted_labels == null || bar.predicted_labels == 0.0000123) {
                     predictedLabelMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
@@ -270,7 +270,7 @@ export default {
 
                 let actualLabelMarkObject;
 
-                if(bar.actual_labels == null) {
+                if(bar.actual_labels == null || bar.actual_labels == 0.0000123) {
                     actualLabelMarkObject = {
                         id: i++,
                         time: bar.time / 1000,

@@ -407,7 +407,7 @@ export default {
                             // price_in: bar.price_in,
                             // price_out: bar.price_out,
                             // nbars: bar.nbars,
-                            prediction: getPredictionInIntegerFormat(bar.predicted_labels),
+                            prediction: bar.predicted_labels,
                             match_or_no_match: bar.match_or_no_match
                             // sma20: bar.sma_20
                         }];
@@ -583,7 +583,7 @@ export default {
             backtests_data.forEach(bar => {
                 let predictionMarkObject;
 
-                if(bar.prediction == null) {
+                if(bar.prediction == null || bar.prediction == 0.0000123) {
                     predictionMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
@@ -593,7 +593,7 @@ export default {
                     }
                 }
 
-                else if(bar.prediction == 0) {
+                else if(getPredictionInIntegerFormat(bar.prediction) == 0) {
                     predictionMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
@@ -603,7 +603,7 @@ export default {
                     }
                 }
                 
-                else if(bar.prediction == 1) {
+                else if(getPredictionInIntegerFormat(bar.prediction) == 1) {
                     predictionMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
@@ -613,7 +613,7 @@ export default {
                     }
                 }
 
-                else if(bar.prediction == 2) {
+                else if(getPredictionInIntegerFormat(bar.prediction) == 2) {
                     predictionMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
@@ -623,7 +623,7 @@ export default {
                     }
                 }
 
-                else if(bar.prediction == 3) {
+                else if(getPredictionInIntegerFormat(bar.prediction) == 3) {
                     predictionMarkObject = {
                         id: i++,
                         time: bar.time / 1000,

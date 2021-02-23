@@ -92,7 +92,7 @@ export default {
         backtests_data.forEach(bar => {
             let predictionMarkObject;
 
-            if(bar.prediction == null) {
+            if(bar.prediction == null || bar.prediction == 0.0000123) {
                 predictionMarkObject = {
                     id: i++,
                     time: bar.time / 1000,
