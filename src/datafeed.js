@@ -473,7 +473,7 @@ export default {
     getMarks: async (symbolInfo, from, to, onDataCallback, resolution) => {
         console.log('[getMarks]: Method call');
 
-        // let marks = [];
+        let marks = [];
         console.log(backtests_data);
         // const data = await makeApiRequest();
         let i = 0;
@@ -572,6 +572,7 @@ export default {
             });
             i = 0;
             onDataCallback(marks);
+            backtests_data = [];
             console.log(marks);
         }
         else {
@@ -653,6 +654,7 @@ export default {
             })
             i = 0;
             onDataCallback(marks);
+            backtests_data = [];
             console.log(marks);
         }
 

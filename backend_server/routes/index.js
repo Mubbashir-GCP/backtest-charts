@@ -90,6 +90,7 @@ router.get('/backtestData', cors(), async (req, res, next) => {
   });
   
   console.log(backtests_jsons);
+  console.log('No. of rows returned: ' + backtests_jsons.length);
   return res.json(backtests_jsons);
   // console.log(backtestID);
   // return res.status(200).send(`Backtest ID: ${backtestID}`);

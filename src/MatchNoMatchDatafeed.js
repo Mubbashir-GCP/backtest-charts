@@ -93,6 +93,7 @@ export default {
 
         i = 0;
         onDataCallback(marks);
+        backtests_data = [];
         console.log(marks);
     }
 }
