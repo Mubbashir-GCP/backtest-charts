@@ -347,7 +347,27 @@ export default {
             if(data.hasOwnProperty('noData'))
                 alert('No Data returned!');
 
-            if(!data[0].hasOwnProperty('match_or_no_match')) {
+            if(data[0].hasOwnProperty('missed_opportunities')) {
+                let timestamp = new Date(bar.timestamps);
+                let time = Math.floor(timestamp.getTime());
+
+                backtests_data = [...backtests_data, {
+                    time: time, 
+                    low: bar.l,
+                    high: bar.h,
+                    open: bar.o,
+                    close: bar.c,
+                    volume: bar.v,
+                    prediction: bar.predicted_labels,
+                    match_or_no_match: bar.match_or_no_match,
+                    missed_opportunities: bar.missed_opportunities
+                }];
+
+                console.log(`[getBars]: returned ${backtests_data.length} bar(s)`);
+                onHistoryCallback(backtests_data, { noData: false });
+            }
+
+            else if(!data[0].hasOwnProperty('match_or_no_match')) {
                 data.forEach(bar => {
                     let timestamp = new Date(bar.timestamp_);
                     let time = Math.floor(timestamp.getTime());
@@ -384,26 +404,6 @@ export default {
             //     onHistoryCallback(bars, { noData: false });
             //     ++c;
             // }
-
-            else if(data[0].hasOwnProperty('missed_opportunities')) {
-                let timestamp = new Date(bar.timestamps);
-                let time = Math.floor(timestamp.getTime());
-
-                backtests_data = [...backtests_data, {
-                    time: time, 
-                    low: bar.l,
-                    high: bar.h,
-                    open: bar.o,
-                    close: bar.c,
-                    volume: bar.v,
-                    prediction: bar.predicted_labels,
-                    match_or_no_match: bar.match_or_no_match,
-                    missed_opportunities: bar.missed_opportunities
-                }];
-
-                console.log(`[getBars]: returned ${backtests_data.length} bar(s)`);
-                onHistoryCallback(backtests_data, { noData: false });
-            }
 
             else {
                 data.forEach(bar => {
@@ -502,7 +502,70 @@ export default {
         console.log(backtests_data);
         // const data = await makeApiRequest();
         let i = 0;
-        if(!backtests_data[0].hasOwnProperty('match_or_no_match')) {
+        if(backtests_data[0].hasOwnProperty('missed_opportunities')) {
+            backtests_data.forEach(bar => {
+                let predictionMarkObject;
+
+                if(bar.prediction == null || bar.prediction == 0.0000123) {
+                    predictionMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        color: { border: '#c7c7c7', background: '#c7c7c7' },
+                        text: `<p>Prediction: ${bar.prediction}</p>`,
+                        minSize: 2
+                    }
+                }
+
+                else if(getPredictionInIntegerFormat(bar.prediction) == 0) {
+                    predictionMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        color: { border: '#966330', background: '#966330' },
+                        text: `<p>Prediction: ${bar.prediction}</p>`,
+                        minSize: 2
+                    }
+                }
+                
+                else if(getPredictionInIntegerFormat(bar.prediction) == 1) {
+                    predictionMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        color: { border: '#000', background: '#fff' },
+                        text: `<p>Prediction: ${bar.prediction}</p>`,
+                        minSize: 2
+                    }
+                }
+
+                else if(getPredictionInIntegerFormat(bar.prediction) == 2) {
+                    predictionMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        text: `<p>Prediction: ${bar.prediction}</p>`,
+                        color: { border: '#0000a0', background: '#0000a0' },
+                        minSize: 2
+                    }
+                }
+
+                marks = [...marks, predictionMarkObject]
+
+                let markObject = {
+                    id: i++,
+                    time: bar.time / 1000,
+                    color: bar.match_or_no_match == 'No Match!' ? { border: '#d63c2d', background: '#d63c2d' } : 
+                                                                  { border: '#32cd32', background: '#32cd32' },
+                    text: `<p>${bar.match_or_no_match}</p>`,
+                    minSize: 2
+                }
+
+                marks = [...marks, markObject];
+            })
+            i = 0;
+            onDataCallback(marks);
+            backtests_data = [];
+            console.log(marks);
+        }
+
+        else if(!backtests_data[0].hasOwnProperty('match_or_no_match')) {
             backtests_data.forEach(bar => {
                 let predictionMarkObject;
 
@@ -595,68 +658,6 @@ export default {
                     // console.log(marks);
                 }
             });
-            i = 0;
-            onDataCallback(marks);
-            backtests_data = [];
-            console.log(marks);
-        }
-        else if(backtests_data[0].hasOwnProperty('missed_opportunities')) {
-            backtests_data.forEach(bar => {
-                let predictionMarkObject;
-
-                if(bar.prediction == null || bar.prediction == 0.0000123) {
-                    predictionMarkObject = {
-                        id: i++,
-                        time: bar.time / 1000,
-                        color: { border: '#c7c7c7', background: '#c7c7c7' },
-                        text: `<p>Prediction: ${bar.prediction}</p>`,
-                        minSize: 2
-                    }
-                }
-
-                else if(getPredictionInIntegerFormat(bar.prediction) == 0) {
-                    predictionMarkObject = {
-                        id: i++,
-                        time: bar.time / 1000,
-                        color: { border: '#966330', background: '#966330' },
-                        text: `<p>Prediction: ${bar.prediction}</p>`,
-                        minSize: 2
-                    }
-                }
-                
-                else if(getPredictionInIntegerFormat(bar.prediction) == 1) {
-                    predictionMarkObject = {
-                        id: i++,
-                        time: bar.time / 1000,
-                        color: { border: '#000', background: '#fff' },
-                        text: `<p>Prediction: ${bar.prediction}</p>`,
-                        minSize: 2
-                    }
-                }
-
-                else if(getPredictionInIntegerFormat(bar.prediction) == 2) {
-                    predictionMarkObject = {
-                        id: i++,
-                        time: bar.time / 1000,
-                        text: `<p>Prediction: ${bar.prediction}</p>`,
-                        color: { border: '#0000a0', background: '#0000a0' },
-                        minSize: 2
-                    }
-                }
-
-                marks = [...marks, predictionMarkObject]
-
-                let markObject = {
-                    id: i++,
-                    time: bar.time / 1000,
-                    color: bar.match_or_no_match == 'No Match!' ? { border: '#d63c2d', background: '#d63c2d' } : 
-                                                                  { border: '#32cd32', background: '#32cd32' },
-                    text: `<p>${bar.match_or_no_match}</p>`,
-                    minSize: 2
-                }
-
-                marks = [...marks, markObject];
-            })
             i = 0;
             onDataCallback(marks);
             backtests_data = [];
