@@ -336,7 +336,6 @@ export default {
         
         i = 0;
         onDataCallback(marks);
-        marks = [];
         console.log(marks);
     },
 }

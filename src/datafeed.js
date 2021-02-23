@@ -374,7 +374,7 @@ export default {
 
                         // console.log(bar.sma_20);
                 });
-                console.log(`[getBars]: returned ${bars.length} bar(s)`);
+                console.log(`[getBars]: returned ${backtests_data.length} bar(s)`);
                 onHistoryCallback(backtests_data, { noData: false });
             }
             // if(c == 0) {
@@ -653,7 +653,6 @@ export default {
             })
             i = 0;
             onDataCallback(marks);
-            marks = [];
             console.log(marks);
         }
 
