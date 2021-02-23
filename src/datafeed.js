@@ -344,6 +344,9 @@ export default {
             // }
 
             // console.log(new Date('2021-01-19T09:35:00'));
+            if(data.hasOwnProperty('noData'))
+                alert('No Data returned!');
+
             if(!data[0].hasOwnProperty('match_or_no_match')) {
                 data.forEach(bar => {
                     let timestamp = new Date(bar.timestamp_);
@@ -412,6 +415,7 @@ export default {
 
                         // console.log(bar.sma_20);
                 });
+
                 console.log(`[getBars]: returned ${backtests_data.length} bar(s)`);
                 onHistoryCallback(backtests_data, { noData: false });
             }

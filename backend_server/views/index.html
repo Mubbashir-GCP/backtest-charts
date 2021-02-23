@@ -11,7 +11,7 @@
     <body class="body-container" >
         <div class="main-form-container" >
 
-            <form class="main-form" action="/backtestChart" method="GET" >
+            <form class="model-form" action="/backtestChart" method="GET" >
                 <div class="input-container" >
                     <h4>Enter Backtest ID below</h4>
                     
@@ -36,6 +36,22 @@
 
                 <button type="submit" class="btn btn-primary">
                     Plot PKTR
+                </button>
+            </form>
+
+            <h3>
+                Or
+            </h3>
+
+            <form class="model-form" action="/pctChart" method="GET" >
+                <div class="input-container" >
+                    <h4>Enter PCT Model Unique ID below</h4>
+
+                    <input class="form-control" id="pct-model-unique-id" name="pctModelUniqueId">
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    Plot PCT
                 </button>
             </form>
         </div>

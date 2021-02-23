@@ -11,11 +11,18 @@ let pktrQueryText = `with a1 as (select * from public.consolidated_results_pt
 select row_to_json(a1) from a1
 `
 
+let pctQueryText = `with a1 as (select * from public.consolidated_results
+  where  model_unique_id = $1
+  order by timestamps asc)
+
+select row_to_json(a1) from a1`;
+
 let graphType;
 
 // let backtestID = '58432ade-6b17-11eb-98dc-0242ac1c0002';
 let modelUniqueId = '';
 let backtestId = '';
+let pctModelUniqueId = '';
 let backtestQueryText = `with a1 as (
   select distinct * from get_chart_data($1) order by timestamp_ asc )
 
@@ -69,6 +76,21 @@ router.get('/pktrChart', cors(), (req, res, next) => {
   return res.redirect('http://localhost:5000?modelUniqueId=' + modelUniqueId);
 });
 
+router.get('/pctChart', cors(), (req, res, next) => {
+  // console.log(req.query);
+  // if(req.body.backtestId != '')
+  //   backtestId = req.body.backtestId;
+  // else if(req.query.backtestId != null)
+  //   backtestId = req.query.backtestId;
+  // console.log(req.body);
+  console.log(req.query);
+  pctModelUniqueId = req.query.pctModelUniqueId;
+  graphType = 'PCT'
+  console.log(pctModelUniqueId);
+  
+  return res.redirect('http://localhost:5000?pctModelUniqueId=' + pctModelUniqueId);
+});
+
 router.get('/backtestData', cors(), async (req, res, next) => {
 
   // console.log('Hello');
@@ -82,6 +104,8 @@ router.get('/backtestData', cors(), async (req, res, next) => {
 
   if(graphType == 'Backtest') 
     response = await client.query(backtestQueryText, [backtestId]);
+  else if(graphType == 'PCT')
+    response = await client.query(pctQueryText, [pctModelUniqueId]);
   else if(graphType == 'Pktr')
     response = await client.query(pktrQueryText, [modelUniqueId]);
   
@@ -91,7 +115,11 @@ router.get('/backtestData', cors(), async (req, res, next) => {
   
   console.log(backtests_jsons);
   console.log('No. of rows returned: ' + backtests_jsons.length);
-  return res.json(backtests_jsons);
+
+  if(backtests_jsons.length == 0)
+    return res.json({noData: true});
+  else
+    return res.json(backtests_jsons);
   // console.log(backtestID);
   // return res.status(200).send(`Backtest ID: ${backtestID}`);
 })
