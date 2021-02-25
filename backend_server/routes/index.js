@@ -24,13 +24,13 @@ let backtestQueryText = `with a1 as (
 
 let almPctQueryText = `with a1 as (
   select distinct * from public.consolidated_results_alm
-  where model_unique_id = $1 order by timestamps asc limit 100)
+  where model_unique_id = $1 order by timestamps asc)
   
   select row_to_json(a1) from a1`;
 
 let almPktrQueryText = `with a1 as (
   select distinct * from public.consolidated_results_alm_pt
-  where model_unique_id = $1 order by timestamps asc limit 100)
+  where model_unique_id = $1 order by timestamps asc)
   
   select row_to_json(a1) from a1`;
 
