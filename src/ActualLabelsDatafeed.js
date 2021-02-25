@@ -64,7 +64,7 @@ export default {
                         open: bar.o,
                         close: bar.c,
                         volume: bar.v,
-                        prediction: bar.predicted_labels,
+                        prediction: bar.actual_labels,
                         match_or_no_match: bar.match_or_no_match,
                         missed_opportunities: bar.missed_opportunities
                     }];
