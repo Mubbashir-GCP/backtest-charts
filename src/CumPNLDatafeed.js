@@ -53,20 +53,22 @@ export default {
             const data = await makeApiRequest();
 
             if(data[0].hasOwnProperty('missed_opportunities')) {
-                let timestamp = new Date(bar.timestamps);
-                let time = Math.floor(timestamp.getTime());
+                data.forEach(bar => {
+                    let timestamp = new Date(bar.timestamps);
+                    let time = Math.floor(timestamp.getTime());
 
-                backtests_data = [...backtests_data, {
-                    time: time, 
-                    low: bar.l,
-                    high: bar.h,
-                    open: bar.o,
-                    close: bar.c,
-                    volume: bar.v,
-                    prediction: bar.predicted_labels,
-                    match_or_no_match: bar.match_or_no_match,
-                    missed_opportunities: bar.missed_opportunities
-                }];
+                    backtests_data = [...backtests_data, {
+                        time: time, 
+                        low: bar.l,
+                        high: bar.h,
+                        open: bar.o,
+                        close: bar.c,
+                        volume: bar.v,
+                        prediction: bar.predicted_labels,
+                        match_or_no_match: bar.match_or_no_match,
+                        missed_opportunities: bar.missed_opportunities
+                    }];
+                })
 
                 console.log(`[getBars]: returned ${backtests_data.length} bar(s)`);
                 onHistoryCallback(backtests_data, { noData: false });
