@@ -38,7 +38,7 @@ else if(pctModelUniqueId != null) {
 }
 
 else if(almPctModelUniqueId != null) {
-    document.getElementById("page_main_heading").innerHTML = 'ALM PCT Plot for Model Unique ID: ' + pctModelUniqueId;
+    document.getElementById("page_main_heading").innerHTML = 'ALM PCT (Actual Labels) Plot for Model Unique ID: ' + almPctModelUniqueId;
 
     document.getElementById("cum_pnl_or_actual_versus_predicted_labels_chart_heading").
     innerHTML = "Actual VS Predicted Labels";
@@ -54,7 +54,7 @@ else if(almPctModelUniqueId != null) {
 }
 
 else if(almPktrModelUniqueId != null) {
-    document.getElementById("page_main_heading").innerHTML = 'ALM PKTR Plot for Model Unique ID: ' + pctModelUniqueId;
+    document.getElementById("page_main_heading").innerHTML = 'ALM PKTR (Actual Labels) Plot for Model Unique ID: ' + almPktrModelUniqueId;
 
     document.getElementById("cum_pnl_or_actual_versus_predicted_labels_chart_heading").
     innerHTML = "Actual VS Predicted Labels";
