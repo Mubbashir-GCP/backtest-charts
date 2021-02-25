@@ -157,18 +157,7 @@ export default {
                     }
                 }
 
-                marks = [...marks, predictionMarkObject]
-
-                let markObject = {
-                    id: i++,
-                    time: bar.time / 1000,
-                    color: bar.match_or_no_match == 'No Match!' ? { border: '#d63c2d', background: '#d63c2d' } : 
-                                                                  { border: '#32cd32', background: '#32cd32' },
-                    text: `<p>${bar.match_or_no_match}</p>`,
-                    minSize: 2
-                }
-
-                marks = [...marks, markObject];
+                marks = [...marks, predictionMarkObject];
             })
             i = 0;
             onDataCallback(marks);

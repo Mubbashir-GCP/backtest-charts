@@ -122,7 +122,7 @@ export default {
                         id: i++,
                         time: bar.time / 1000,
                         color: { border: '#c7c7c7', background: '#c7c7c7' },
-                        text: `<p>Prediction: ${bar.prediction}</p>`,
+                        text: `<p>Actual Label: ${bar.prediction}</p>`,
                         minSize: 2
                     }
                 }
@@ -132,7 +132,7 @@ export default {
                         id: i++,
                         time: bar.time / 1000,
                         color: { border: '#966330', background: '#966330' },
-                        text: `<p>Prediction: ${bar.prediction}</p>`,
+                        text: `<p>Actual Label: ${bar.prediction}</p>`,
                         minSize: 2
                     }
                 }
@@ -142,7 +142,7 @@ export default {
                         id: i++,
                         time: bar.time / 1000,
                         color: { border: '#000', background: '#fff' },
-                        text: `<p>Prediction: ${bar.prediction}</p>`,
+                        text: `<p>Actual Label: ${bar.prediction}</p>`,
                         minSize: 2
                     }
                 }
@@ -151,24 +151,13 @@ export default {
                     predictionMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
-                        text: `<p>Prediction: ${bar.prediction}</p>`,
+                        text: `<p>Actual Label: ${bar.prediction}</p>`,
                         color: { border: '#0000a0', background: '#0000a0' },
                         minSize: 2
                     }
                 }
 
                 marks = [...marks, predictionMarkObject]
-
-                let markObject = {
-                    id: i++,
-                    time: bar.time / 1000,
-                    color: bar.match_or_no_match == 'No Match!' ? { border: '#d63c2d', background: '#d63c2d' } : 
-                                                                  { border: '#32cd32', background: '#32cd32' },
-                    text: `<p>${bar.match_or_no_match}</p>`,
-                    minSize: 2
-                }
-
-                marks = [...marks, markObject];
             })
             i = 0;
             onDataCallback(marks);
