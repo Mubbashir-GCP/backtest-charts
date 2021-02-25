@@ -348,6 +348,8 @@ export default {
                 alert('No Data returned!');
 
             if(data[0].hasOwnProperty('missed_opportunities')) {
+                console.log('PCT Model Block called');
+
                 let timestamp = new Date(bar.timestamps);
                 let time = Math.floor(timestamp.getTime());
 
@@ -368,6 +370,8 @@ export default {
             }
 
             else if(!data[0].hasOwnProperty('match_or_no_match')) {
+                console.log('Backtest Block called');
+
                 data.forEach(bar => {
                     let timestamp = new Date(bar.timestamp_);
                     let time = Math.floor(timestamp.getTime());
@@ -406,6 +410,8 @@ export default {
             // }
 
             else {
+                console.log('Model Block called');
+
                 data.forEach(bar => {
                     let timestamp = new Date(bar.timestamps);
                     let time = Math.floor(timestamp.getTime());
