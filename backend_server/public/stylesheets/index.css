@@ -9,7 +9,7 @@
 
 .main-form-container {
     background: #fff;
-    width: 50%;
+    width: 80%;
     height: 90%;
     border-radius: 20px;
     display: flex;
@@ -20,7 +20,7 @@
 }
 
 .main-form {
-    height: 35%;
+    height: 55%;
     width: 80%;
     display: flex;
     flex-direction: column;
@@ -30,7 +30,7 @@
 }
 
 .model-form {
-    height: 25%;
+    height: 80%;
     width: 80%;
     display: flex;
     flex-direction: column;
@@ -39,9 +39,27 @@
 
 }
 
+.model-form-row {
+    height: 30%;
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.model-form-card {
+    height: 30%;
+    width: 45%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
 .input-container {
     height: 30%;
-    width: 100%;
+    width: 70%;
     display: flex;
     flex-direction: column;
     align-items: center;

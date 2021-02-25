@@ -10,50 +10,72 @@
 
     <body class="body-container" >
         <div class="main-form-container" >
+            <div class="model-form-row" >
+                <form class="model-form" action="/backtestChart" method="GET" >
+                    <div class="input-container" >
+                        <h5>Enter Backtest ID below</h5>
+                        
+                        <input class="form-control" id="backtest-id" name="backtestId">
+                    </div>
 
-            <form class="model-form" action="/backtestChart" method="GET" >
-                <div class="input-container" >
-                    <h4>Enter Backtest ID below</h4>
-                    
-                    <input class="form-control" id="backtest-id" name="backtestId">
-                </div>
+                    <button type="submit" class="btn btn-primary">
+                        Plot Backtest
+                    </button>
+                </form>
 
-                <button type="submit" class="btn btn-primary">
-                    Plot Backtest
-                </button>
-            </form>
+                <form class="model-form" action="/pktrChart" method="GET" >
+                    <div class="input-container" >
+                        <h5>Enter PKTR ID below</h5>
 
-            <h3>
-                Or
-            </h3>
+                        <input class="form-control" id="model-unique-id" name="modelUniqueId">
+                    </div>
 
-            <form class="model-form" action="/pktrChart" method="GET" >
-                <div class="input-container" >
-                    <h4>Enter Model Unique ID below</h4>
+                    <button type="submit" class="btn btn-primary">
+                        Plot PKTR
+                    </button>
+                </form>
 
-                    <input class="form-control" id="model-unique-id" name="modelUniqueId">
-                </div>
+            </div>
+            
+            <div class="model-form-row">
+                <form class="model-form" action="/pctChart" method="GET" >
+                    <div class="input-container" >
+                        <h5>Enter PCT ID below</h5>
 
-                <button type="submit" class="btn btn-primary">
-                    Plot PKTR
-                </button>
-            </form>
+                        <input class="form-control" id="pct-model-unique-id" name="pctModelUniqueId">
+                    </div>
 
-            <h3>
-                Or
-            </h3>
+                    <button type="submit" class="btn btn-primary">
+                        Plot PCT
+                    </button>
+                </form>
 
-            <form class="model-form" action="/pctChart" method="GET" >
-                <div class="input-container" >
-                    <h4>Enter PCT Model Unique ID below</h4>
+                <form class="model-form" action="/almPctChart" method="GET" >
+                    <div class="input-container" >
+                        <h5>Enter ALM PCT ID below</h5>
 
-                    <input class="form-control" id="pct-model-unique-id" name="pctModelUniqueId">
-                </div>
+                        <input class="form-control" id="alm-pct-model-unique-id" name="almPctModelUniqueId">
+                    </div>
 
-                <button type="submit" class="btn btn-primary">
-                    Plot PCT
-                </button>
-            </form>
+                    <button type="submit" class="btn btn-primary">
+                        Plot ALM PCT
+                    </button>
+                </form>
+            </div>
+
+            <div class="model-form-card">
+                <form class="model-form" action="/almPktrChart" method="GET" >
+                    <div class="input-container" >
+                        <h5>Enter ALM PKTR ID below</h5>
+
+                        <input class="form-control" id="alm-pktr-model-unique-id" name="almPktrModelUniqueId">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        Plot ALM PKTR
+                    </button>
+                </form>
+            </div>
         </div>
 
 

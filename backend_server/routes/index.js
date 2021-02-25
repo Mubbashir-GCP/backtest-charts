@@ -17,16 +17,31 @@ let pctQueryText = `with a1 as (select * from public.consolidated_results
 
 select row_to_json(a1) from a1`;
 
+let backtestQueryText = `with a1 as (
+  select distinct * from get_chart_data($1) order by timestamp_ asc )
+
+  select row_to_json(a1) from a1`;
+
+let almPctQueryText = `with a1 as (
+  select * from public.consolidated_results_alm
+  where model_unique_id = $1 order by timestamps asc)
+  
+  select row_to_json(a1) from a1`;
+
+let almPktrQueryText = `with a1 as (
+  select * from public.consolidated_results_alm_pt
+  where model_unique_id = $1 order by timestamps asc)
+  
+  select row_to_json(a1) from a1`;
+
 let graphType;
 
 // let backtestID = '58432ade-6b17-11eb-98dc-0242ac1c0002';
 let modelUniqueId = '';
 let backtestId = '';
 let pctModelUniqueId = '';
-let backtestQueryText = `with a1 as (
-  select distinct * from get_chart_data($1) order by timestamp_ asc )
-
-  select row_to_json(a1) from a1`
+let almPctModelUniqueId = '';
+let almPktrModelUniqueId = '';
 
 const client = new Client({
   user: 'gcp_read_only',
@@ -47,12 +62,6 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/backtestChart', cors(), (req, res, next) => {
-  // console.log(req.query);
-  // if(req.body.backtestId != '')
-  //   backtestId = req.body.backtestId;
-  // else if(req.query.backtestId != null)
-  //   backtestId = req.query.backtestId;
-  // console.log(req.body);
   console.log(req.query);
   backtestId = req.query.backtestId;
   graphType = 'Backtest';
@@ -62,12 +71,6 @@ router.get('/backtestChart', cors(), (req, res, next) => {
 });
 
 router.get('/pktrChart', cors(), (req, res, next) => {
-  // console.log(req.query);
-  // if(req.body.backtestId != '')
-  //   backtestId = req.body.backtestId;
-  // else if(req.query.backtestId != null)
-  //   backtestId = req.query.backtestId;
-  // console.log(req.body);
   console.log(req.query);
   modelUniqueId = req.query.modelUniqueId;
   graphType = 'Pktr'
@@ -77,18 +80,30 @@ router.get('/pktrChart', cors(), (req, res, next) => {
 });
 
 router.get('/pctChart', cors(), (req, res, next) => {
-  // console.log(req.query);
-  // if(req.body.backtestId != '')
-  //   backtestId = req.body.backtestId;
-  // else if(req.query.backtestId != null)
-  //   backtestId = req.query.backtestId;
-  // console.log(req.body);
   console.log(req.query);
   pctModelUniqueId = req.query.pctModelUniqueId;
   graphType = 'PCT'
   console.log(pctModelUniqueId);
   
   return res.redirect('http://localhost:5000?pctModelUniqueId=' + pctModelUniqueId);
+});
+
+router.get('/almPctChart', cors(), (req, res, next) => {
+  console.log(req.query);
+  almPctModelUniqueId = req.query.almPctModelUniqueId;
+  graphType = 'ALM_PCT'
+  console.log(almPctModelUniqueId);
+  
+  return res.redirect('http://localhost:5000?almPctModelUniqueId=' + almPctModelUniqueId);
+});
+
+router.get('/almPktrChart', cors(), (req, res, next) => {
+  console.log(req.query);
+  almPktrModelUniqueId = req.query.almPktrModelUniqueId;
+  graphType = 'ALM_PKTR'
+  console.log(almPktrModelUniqueId);
+  
+  return res.redirect('http://localhost:5000?almPktrModelUniqueId=' + almPktrModelUniqueId);
 });
 
 router.get('/backtestData', cors(), async (req, res, next) => {
@@ -108,6 +123,10 @@ router.get('/backtestData', cors(), async (req, res, next) => {
     response = await client.query(pctQueryText, [pctModelUniqueId]);
   else if(graphType == 'Pktr')
     response = await client.query(pktrQueryText, [modelUniqueId]);
+  else if(graphType == 'ALM_PCT')
+    response = await client.query(almPctQueryText, [almPctModelUniqueId]);
+  else if(graphType == 'ALM_PKTR')
+    response = await client.query(almPktrQueryText, [almPktrModelUniqueId]);
   
   response.rows.forEach(row => {
     backtests_jsons = [... backtests_jsons, row.row_to_json]
