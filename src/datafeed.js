@@ -149,7 +149,8 @@ export default {
                         price_in: bar.price_in,
                         price_out: bar.price_out,
                         nbars: bar.nbars,
-                        prediction: bar.prediction
+                        prediction: bar.prediction,
+                        act_pred: bar.act_pred
                     }];
                 });
                 console.log(`[getBars]: returned ${backtests_data.length} bar(s)`);
@@ -391,20 +392,56 @@ export default {
                 let predictionMarkObject;
 
                 
-                if(bar.prediction == null) {
+                if(bar.act_pred == null || bar.act_pred == 0.0000123) {
                     predictionMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
                         color: { border: '#c7c7c7', background: '#c7c7c7' },
+                        text: `<p>Prediction: ${bar.prediction}</p>
+                               <p>Actual: ${bar.act_pred}</p>`,
+                        minSize: 2
+                    }
+                }
+
+                else if(getPredictionInIntegerFormat(bar.act_pred) == 0) {
+                    predictionMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        color: { border: '#966330', background: '#966330' },
+                        text: `<p>Prediction: ${bar.prediction}</p>
+                               <p>Actual: ${bar.act_pred}</p>`,
                         minSize: 2
                     }
                 }
                 
-                else if(bar.prediction == 1) {
+                else if(getPredictionInIntegerFormat(bar.act_pred) == 1) {
                     predictionMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
-                        color: { border: '#000', background: '#fff' },
+                        color: { border: '#e2af80', background: '#e2af80' },
+                        text: `<p>Prediction: ${bar.prediction}</p>
+                               <p>Actual: ${bar.act_pred}</p>`,
+                        minSize: 2
+                    }
+                }
+
+                else if(getPredictionInIntegerFormat(bar.act_pred) == 2) {
+                    predictionMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        text: `<p>Prediction: ${bar.prediction}</p>`,
+                        color: { border: '#00ccff', background: '#00ccff' },
+                        minSize: 2
+                    }
+                }
+
+                else if(getPredictionInIntegerFormat(bar.act_pred) == 3) {
+                    predictionMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        color: { border: '#0000a0', background: '#0000a0' },
+                        text: `<p>Prediction: ${bar.prediction}</p>
+                               <p>Actual: ${bar.act_pred}</p>`,
                         minSize: 2
                     }
                 }
@@ -413,8 +450,9 @@ export default {
                     predictionMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
-                        color: bar.prediction == 0 ? { border: '#b5651d', background: '#b5651d' } : 
-                                                    { border: '#00ccff', background: '#00ccff' },
+                        color:  { border: '#000', background: '#fff' } ,
+                        text: `<p>Prediction: ${bar.prediction}</p>
+                               <p>Actual: ${bar.act_pred}</p>`,
                         minSize: 2
                     }
                 }
