@@ -392,56 +392,57 @@ export default {
                 let predictionMarkObject;
 
                 
-                if(bar.act_pred == null || bar.act_pred == 0.0000123) {
+                if(bar.act_pred[0] == null || bar.act_pred[0] == 0.0000123) {
                     predictionMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
                         color: { border: '#c7c7c7', background: '#c7c7c7' },
                         text: `<p>Prediction: ${bar.prediction}</p>
-                               <p>Actual: ${bar.act_pred}</p>`,
+                               <p>Actual: ${bar.act_pred[0]}</p>`,
                         minSize: 2
                     }
                 }
 
-                else if(getPredictionInIntegerFormat(bar.act_pred) == 0) {
+                else if(getPredictionInIntegerFormat(bar.act_pred[0]) == 0) {
                     predictionMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
                         color: { border: '#966330', background: '#966330' },
                         text: `<p>Prediction: ${bar.prediction}</p>
-                               <p>Actual: ${bar.act_pred}</p>`,
+                               <p>Actual: ${bar.act_pred[0]}</p>`,
                         minSize: 2
                     }
                 }
                 
-                else if(getPredictionInIntegerFormat(bar.act_pred) == 1) {
+                else if(getPredictionInIntegerFormat(bar.act_pred[0]) == 1) {
                     predictionMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
                         color: { border: '#e2af80', background: '#e2af80' },
                         text: `<p>Prediction: ${bar.prediction}</p>
-                               <p>Actual: ${bar.act_pred}</p>`,
+                               <p>Actual: ${bar.act_pred[0]}</p>`,
                         minSize: 2
                     }
                 }
 
-                else if(getPredictionInIntegerFormat(bar.act_pred) == 2) {
+                else if(getPredictionInIntegerFormat(bar.act_pred[0]) == 2) {
                     predictionMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
-                        text: `<p>Prediction: ${bar.prediction}</p>`,
+                        text: `<p>Prediction: ${bar.prediction}</p>
+                               <p>Actual: ${bar.act_pred[0]}</p>`,
                         color: { border: '#00ccff', background: '#00ccff' },
                         minSize: 2
                     }
                 }
 
-                else if(getPredictionInIntegerFormat(bar.act_pred) == 3) {
+                else if(getPredictionInIntegerFormat(bar.act_pred[0]) == 3) {
                     predictionMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
                         color: { border: '#0000a0', background: '#0000a0' },
                         text: `<p>Prediction: ${bar.prediction}</p>
-                               <p>Actual: ${bar.act_pred}</p>`,
+                               <p>Actual: ${bar.act_pred[0]}</p>`,
                         minSize: 2
                     }
                 }
@@ -452,7 +453,7 @@ export default {
                         time: bar.time / 1000,
                         color:  { border: '#000', background: '#fff' } ,
                         text: `<p>Prediction: ${bar.prediction}</p>
-                               <p>Actual: ${bar.act_pred}</p>`,
+                               <p>Actual: ${bar.act_pred[0]}</p>`,
                         minSize: 2
                     }
                 }
