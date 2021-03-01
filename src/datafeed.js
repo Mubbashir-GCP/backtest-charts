@@ -150,7 +150,9 @@ export default {
                         price_out: bar.price_out,
                         nbars: bar.nbars,
                         prediction: bar.prediction,
-                        act_pred: bar.act_pred
+                        act_pred: bar.act_pred,
+                        date_in: bar.date_in,
+                        date_out: bar.date_out
                     }];
                 });
                 console.log(`[getBars]: returned ${backtests_data.length} bar(s)`);
@@ -397,7 +399,11 @@ export default {
                         time: bar.time / 1000,
                         color: { border: '#c7c7c7', background: '#c7c7c7' },
                         text: `<p>Prediction: ${bar.prediction}</p>
-                               <p>Actual: ${bar.act_pred}</p>`,
+                               <p>Actual: ${bar.act_pred}</p>
+                               <p>Open: ${bar.open}</p>
+                               <p>High: ${bar.high}</p>
+                               <p>Low: ${bar.low}</p>
+                               <p>Close: ${bar.close}</p>`,
                         minSize: 2
                     }
                 }
@@ -408,7 +414,11 @@ export default {
                         time: bar.time / 1000,
                         color: { border: '#966330', background: '#966330' },
                         text: `<p>Prediction: ${bar.prediction}</p>
-                               <p>Actual: ${bar.act_pred}</p>`,
+                               <p>Actual: ${bar.act_pred}</p>
+                               <p>Open: ${bar.open}</p>
+                               <p>High: ${bar.high}</p>
+                               <p>Low: ${bar.low}</p>
+                               <p>Close: ${bar.close}</p>`,
                         minSize: 2
                     }
                 }
@@ -419,7 +429,11 @@ export default {
                         time: bar.time / 1000,
                         color: { border: '#000', background: '#fff' },
                         text: `<p>Prediction: ${bar.prediction}</p>
-                               <p>Actual: ${bar.act_pred}</p>`,
+                               <p>Actual: ${bar.act_pred}</p>
+                               <p>Open: ${bar.open}</p>
+                               <p>High: ${bar.high}</p>
+                               <p>Low: ${bar.low}</p>
+                               <p>Close: ${bar.close}</p>`,
                         minSize: 2
                     }
                 }
@@ -429,7 +443,11 @@ export default {
                         id: i++,
                         time: bar.time / 1000,
                         text: `<p>Prediction: ${bar.prediction}</p>
-                               <p>Actual: ${bar.act_pred}</p>`,
+                               <p>Actual: ${bar.act_pred}</p>
+                               <p>Open: ${bar.open}</p>
+                               <p>High: ${bar.high}</p>
+                               <p>Low: ${bar.low}</p>
+                               <p>Close: ${bar.close}</p>`,
                         color: { border: '#0000a0', background: '#0000a0' },
                         minSize: 2
                     }
@@ -476,6 +494,8 @@ export default {
                     let hoverBoxText = `<p>PNL: ${bar.pnl}</p>` +
                                         `<p>Price In: ${bar.price_in.toString()}</p>` +
                                         `<p>Price Out: ${bar.price_out.toString()}</p>` +
+                                        `<p>Date In: ${bar.date_in}</p>` +
+                                        `<p>Date Out: ${bar.date_out}</p>` +
                                         `<p>nbars: ${bar.nbars}</p>`;
 
                     let markObject = {
