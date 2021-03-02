@@ -412,7 +412,7 @@ export default {
                     translatedMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
-                        color: { border: '#966330', background: '#966330' },
+                        color: { border: '#966330', background: '#fff' },
                         text: `<p>Translated: ${bar.prediction}</p>
                                <p>Actual: ${bar.act_pred}</p>
                                <p>Open: ${bar.open}</p>
@@ -448,7 +448,7 @@ export default {
                                <p>High: ${bar.high}</p>
                                <p>Low: ${bar.low}</p>
                                <p>Close: ${bar.close}</p>`,
-                        color: { border: '#00ccff', background: '#00ccff' },
+                        color: { border: '#00ccff', background: '#fff' },
                         minSize: 2
                     }
                 }
@@ -463,7 +463,7 @@ export default {
                                <p>High: ${bar.high}</p>
                                <p>Low: ${bar.low}</p>
                                <p>Close: ${bar.close}</p>`,
-                        color: { border: '#0000a0', background: '#0000a0' },
+                        color: { border: '#0000a0', background: '#fff' },
                         minSize: 2
                     }
                 }
