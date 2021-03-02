@@ -427,7 +427,7 @@ export default {
                     translatedMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
-                        color: { border: '#e2af80', background: '#e2af80' },
+                        color: { border: '#000', background: '#fff' },
                         text: `<p>Translated: ${bar.prediction}</p>
                                <p>Actual: ${bar.act_pred}</p>
                                <p>Open: ${bar.open}</p>
