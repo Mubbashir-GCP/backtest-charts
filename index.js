@@ -6,7 +6,7 @@ let almPctModelUniqueId = params.get("almPctModelUniqueId");
 let almPktrModelUniqueId = params.get("almPktrModelUniqueId");
 
 if(backtestId != null) {
-    document.getElementById("page_main_heading").innerHTML = 'Plot for Backtest ID: ' + backtestId;
+    document.getElementById("page_main_heading").innerHTML = 'Actual vs Translated plot for Backtest ID: ' + backtestId;
     
     document.getElementById("cum_pnl_or_actual_versus_predicted_labels_chart_heading").
     innerHTML = "Cumulative PNL";

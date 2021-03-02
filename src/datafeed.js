@@ -391,10 +391,103 @@ export default {
 
         else if(!backtests_data[0].hasOwnProperty('match_or_no_match')) {
             backtests_data.forEach(bar => {
-                let predictionMarkObject;
+                let translatedMarkObject;
+
+                if(bar.prediction == null || Number(bar.prediction) == 0.0000123) {
+                    translatedMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        color: { border: '#c7c7c7', background: '#c7c7c7' },
+                        text: `<p>Translated: ${bar.prediction}</p>
+                               <p>Actual: ${bar.act_pred}</p>
+                               <p>Open: ${bar.open}</p>
+                               <p>High: ${bar.high}</p>
+                               <p>Low: ${bar.low}</p>
+                               <p>Close: ${bar.close}</p>`,
+                        minSize: 2
+                    }
+                }
+
+                else if(getPredictionInIntegerFormat(Number(bar.prediction)) == 0) {
+                    translatedMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        color: { border: '#966330', background: '#966330' },
+                        text: `<p>Translated: ${bar.prediction}</p>
+                               <p>Actual: ${bar.act_pred}</p>
+                               <p>Open: ${bar.open}</p>
+                               <p>High: ${bar.high}</p>
+                               <p>Low: ${bar.low}</p>
+                               <p>Close: ${bar.close}</p>`,
+                        minSize: 2
+                    }
+                }
+                
+                else if(getPredictionInIntegerFormat(Number(bar.prediction)) == 1) {
+                    translatedMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        color: { border: '#e2af80', background: '#e2af80' },
+                        text: `<p>Translated: ${bar.prediction}</p>
+                               <p>Actual: ${bar.act_pred}</p>
+                               <p>Open: ${bar.open}</p>
+                               <p>High: ${bar.high}</p>
+                               <p>Low: ${bar.low}</p>
+                               <p>Close: ${bar.close}</p>`,
+                        minSize: 2
+                    }
+                }
+
+                else if(getPredictionInIntegerFormat(Number(bar.prediction)) == 2) {
+                    translatedMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        text: `<p>Translated: ${bar.prediction}</p>
+                               <p>Actual: ${bar.act_pred}</p>
+                               <p>Open: ${bar.open}</p>
+                               <p>High: ${bar.high}</p>
+                               <p>Low: ${bar.low}</p>
+                               <p>Close: ${bar.close}</p>`,
+                        color: { border: '#00ccff', background: '#00ccff' },
+                        minSize: 2
+                    }
+                }
+
+                else if(getPredictionInIntegerFormat(Number(bar.prediction)) == 3) {
+                    translatedMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        text: `<p>Translated: ${bar.prediction}</p>
+                               <p>Actual: ${bar.act_pred}</p>
+                               <p>Open: ${bar.open}</p>
+                               <p>High: ${bar.high}</p>
+                               <p>Low: ${bar.low}</p>
+                               <p>Close: ${bar.close}</p>`,
+                        color: { border: '#0000a0', background: '#0000a0' },
+                        minSize: 2
+                    }
+                }
+                else {
+                    translatedMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        text: `<p>Translated: ${bar.prediction}</p>
+                               <p>Actual: ${bar.act_pred}</p>
+                               <p>Open: ${bar.open}</p>
+                               <p>High: ${bar.high}</p>
+                               <p>Low: ${bar.low}</p>
+                               <p>Close: ${bar.close}</p>`,
+                        color: { border: '#000', background: '#fff' },
+                        minSize: 2
+                    }
+                }
+
+                marks = [...marks, translatedMarkObject]
+
+                let actualPredictionMarkObject;
 
                 if(bar.act_pred == null || bar.act_pred == 0.0000123) {
-                    predictionMarkObject = {
+                    actualPredictionMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
                         color: { border: '#c7c7c7', background: '#c7c7c7' },
@@ -409,7 +502,7 @@ export default {
                 }
 
                 else if(getPredictionInIntegerFormat(bar.act_pred) == 0) {
-                    predictionMarkObject = {
+                    actualPredictionMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
                         color: { border: '#966330', background: '#966330' },
@@ -424,7 +517,7 @@ export default {
                 }
                 
                 else if(getPredictionInIntegerFormat(bar.act_pred) == 1) {
-                    predictionMarkObject = {
+                    actualPredictionMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
                         color: { border: '#e2af80', background: '#e2af80' },
@@ -439,7 +532,7 @@ export default {
                 }
 
                 else if(getPredictionInIntegerFormat(bar.act_pred) == 2) {
-                    predictionMarkObject = {
+                    actualPredictionMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
                         text: `<p>Prediction: ${bar.prediction}</p>
@@ -454,7 +547,7 @@ export default {
                 }
 
                 else if(getPredictionInIntegerFormat(bar.act_pred) == 3) {
-                    predictionMarkObject = {
+                    actualPredictionMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
                         text: `<p>Prediction: ${bar.prediction}</p>
@@ -468,7 +561,7 @@ export default {
                     }
                 }
                 else {
-                    predictionMarkObject = {
+                    actualPredictionMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
                         text: `<p>Prediction: ${bar.prediction}</p>
@@ -482,7 +575,7 @@ export default {
                     }
                 }
 
-                marks = [...marks, predictionMarkObject]
+                marks = [...marks, actualPredictionMarkObject]
 
                 if(bar.direction != null) {
                     let markSize;
