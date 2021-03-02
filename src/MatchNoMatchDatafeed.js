@@ -103,133 +103,191 @@ export default {
 
         if(!backtests_data[0].hasOwnProperty('match_or_no_match')) {
             backtests_data.forEach(bar => {
-                let predictedLabelMarkObject;
-                
+                let translatedMarkObject;
+
                 if(bar.prediction == null || Number(bar.prediction) == 0.0000123) {
-                    predictedLabelMarkObject = {
+                    translatedMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
                         color: { border: '#c7c7c7', background: '#c7c7c7' },
-                        text: `<p>Translated: ${bar.prediction}</p>`,
+                        text: `<p>Translated: ${bar.prediction}</p>
+                               <p>Actual: ${bar.act_pred}</p>
+                               <p>Open: ${bar.open}</p>
+                               <p>High: ${bar.high}</p>
+                               <p>Low: ${bar.low}</p>
+                               <p>Close: ${bar.close}</p>`,
                         minSize: 2
                     }
                 }
 
                 else if(getPredictionInIntegerFormat(Number(bar.prediction)) == 0) {
-                    predictedLabelMarkObject = {
+                    translatedMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
                         color: { border: '#966330', background: '#966330' },
-                        text: `<p>Translated: ${bar.prediction}</p>`,
+                        text: `<p>Translated: ${bar.prediction}</p>
+                               <p>Actual: ${bar.act_pred}</p>
+                               <p>Open: ${bar.open}</p>
+                               <p>High: ${bar.high}</p>
+                               <p>Low: ${bar.low}</p>
+                               <p>Close: ${bar.close}</p>`,
                         minSize: 2
                     }
                 }
                 
                 else if(getPredictionInIntegerFormat(Number(bar.prediction)) == 1) {
-                    predictedLabelMarkObject = {
+                    translatedMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
                         color: { border: '#e2af80', background: '#e2af80' },
-                        text: `<p>Translated: ${bar.prediction}</p>`,
+                        text: `<p>Translated: ${bar.prediction}</p>
+                               <p>Actual: ${bar.act_pred}</p>
+                               <p>Open: ${bar.open}</p>
+                               <p>High: ${bar.high}</p>
+                               <p>Low: ${bar.low}</p>
+                               <p>Close: ${bar.close}</p>`,
                         minSize: 2
                     }
                 }
 
                 else if(getPredictionInIntegerFormat(Number(bar.prediction)) == 2) {
-                    predictedLabelMarkObject = {
+                    translatedMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
-                        text: `<p>Translated: ${bar.prediction}</p>`,
+                        text: `<p>Translated: ${bar.prediction}</p>
+                               <p>Actual: ${bar.act_pred}</p>
+                               <p>Open: ${bar.open}</p>
+                               <p>High: ${bar.high}</p>
+                               <p>Low: ${bar.low}</p>
+                               <p>Close: ${bar.close}</p>`,
                         color: { border: '#00ccff', background: '#00ccff' },
                         minSize: 2
                     }
                 }
 
                 else if(getPredictionInIntegerFormat(Number(bar.prediction)) == 3) {
-                    predictedLabelMarkObject = {
+                    translatedMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
+                        text: `<p>Translated: ${bar.prediction}</p>
+                               <p>Actual: ${bar.act_pred}</p>
+                               <p>Open: ${bar.open}</p>
+                               <p>High: ${bar.high}</p>
+                               <p>Low: ${bar.low}</p>
+                               <p>Close: ${bar.close}</p>`,
                         color: { border: '#0000a0', background: '#0000a0' },
-                        text: `<p>Translated: ${bar.prediction}</p>`,
                         minSize: 2
                     }
                 }
-                
                 else {
-                    predictedLabelMarkObject = {
+                    translatedMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
-                        color:  { border: '#000', background: '#fff' } ,
-                        text: `<p>Translated: ${bar.prediction}</p>`,
+                        text: `<p>Translated: ${bar.prediction}</p>
+                               <p>Actual: ${bar.act_pred}</p>
+                               <p>Open: ${bar.open}</p>
+                               <p>High: ${bar.high}</p>
+                               <p>Low: ${bar.low}</p>
+                               <p>Close: ${bar.close}</p>`,
+                        color: { border: '#000', background: '#fff' },
                         minSize: 2
                     }
                 }
 
-                marks = [...marks, predictedLabelMarkObject];
+                marks = [...marks, translatedMarkObject]
 
-                let actualLabelMarkObject;
+                let actualPredictionMarkObject;
 
                 if(bar.act_pred == null || bar.act_pred == 0.0000123) {
-                    actualLabelMarkObject = {
+                    actualPredictionMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
                         color: { border: '#c7c7c7', background: '#c7c7c7' },
-                        text: `<p>Actual: ${bar.act_pred}</p>`,
+                        text: `<p>Translated: ${bar.prediction}</p>
+                               <p>Actual: ${bar.act_pred}</p>
+                               <p>Open: ${bar.open}</p>
+                               <p>High: ${bar.high}</p>
+                               <p>Low: ${bar.low}</p>
+                               <p>Close: ${bar.close}</p>`,
                         minSize: 2
                     }
                 }
 
-                else if(getPredictionInIntegerFormat(bar.actual_labels) == 0) {
-                    actualLabelMarkObject = {
+                else if(getPredictionInIntegerFormat(bar.act_pred) == 0) {
+                    actualPredictionMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
                         color: { border: '#966330', background: '#966330' },
-                        text: `<p>Actual: ${bar.act_pred}</p>`,
+                        text: `<p>Translated: ${bar.prediction}</p>
+                               <p>Actual: ${bar.act_pred}</p>
+                               <p>Open: ${bar.open}</p>
+                               <p>High: ${bar.high}</p>
+                               <p>Low: ${bar.low}</p>
+                               <p>Close: ${bar.close}</p>`,
                         minSize: 2
                     }
                 }
                 
                 else if(getPredictionInIntegerFormat(bar.act_pred) == 1) {
-                    actualLabelMarkObject = {
+                    actualPredictionMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
                         color: { border: '#e2af80', background: '#e2af80' },
-                        text: `<p>Actual: ${bar.act_pred}</p>`,
+                        text: `<p>Translated: ${bar.prediction}</p>
+                               <p>Actual: ${bar.act_pred}</p>
+                               <p>Open: ${bar.open}</p>
+                               <p>High: ${bar.high}</p>
+                               <p>Low: ${bar.low}</p>
+                               <p>Close: ${bar.close}</p>`,
                         minSize: 2
                     }
                 }
 
                 else if(getPredictionInIntegerFormat(bar.act_pred) == 2) {
-                    actualLabelMarkObject = {
+                    actualPredictionMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
-                        text: `<p>Actual: ${bar.act_pred}</p>`,
+                        text: `<p>Translated: ${bar.prediction}</p>
+                               <p>Actual: ${bar.act_pred}</p>
+                               <p>Open: ${bar.open}</p>
+                               <p>High: ${bar.high}</p>
+                               <p>Low: ${bar.low}</p>
+                               <p>Close: ${bar.close}</p>`,
                         color: { border: '#00ccff', background: '#00ccff' },
                         minSize: 2
                     }
                 }
 
                 else if(getPredictionInIntegerFormat(bar.act_pred) == 3) {
-                    actualLabelMarkObject = {
+                    actualPredictionMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
+                        text: `<p>Translated: ${bar.prediction}</p>
+                               <p>Actual: ${bar.act_pred}</p>
+                               <p>Open: ${bar.open}</p>
+                               <p>High: ${bar.high}</p>
+                               <p>Low: ${bar.low}</p>
+                               <p>Close: ${bar.close}</p>`,
                         color: { border: '#0000a0', background: '#0000a0' },
-                        text: `<p>Actual: ${bar.act_pred}</p>`,
                         minSize: 2
                     }
                 }
-                
                 else {
-                    actualLabelMarkObject = {
+                    actualPredictionMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
-                        color:  { border: '#000', background: '#fff' } ,
-                        text: `<p>Actual: ${bar.act_pred}</p>`,
+                        text: `<p>Translated: ${bar.prediction}</p>
+                               <p>Actual: ${bar.act_pred}</p>
+                               <p>Open: ${bar.open}</p>
+                               <p>High: ${bar.high}</p>
+                               <p>Low: ${bar.low}</p>
+                               <p>Close: ${bar.close}</p>`,
+                        color: { border: '#000', background: '#fff' },
                         minSize: 2
                     }
                 }
 
-                marks = [...marks, actualLabelMarkObject]
+                marks = [...marks, actualPredictionMarkObject]
             });
 
             i = 0;

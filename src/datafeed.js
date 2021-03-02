@@ -491,7 +491,7 @@ export default {
                         id: i++,
                         time: bar.time / 1000,
                         color: { border: '#c7c7c7', background: '#c7c7c7' },
-                        text: `<p>Prediction: ${bar.prediction}</p>
+                        text: `<p>Translated: ${bar.prediction}</p>
                                <p>Actual: ${bar.act_pred}</p>
                                <p>Open: ${bar.open}</p>
                                <p>High: ${bar.high}</p>
@@ -506,7 +506,7 @@ export default {
                         id: i++,
                         time: bar.time / 1000,
                         color: { border: '#966330', background: '#966330' },
-                        text: `<p>Prediction: ${bar.prediction}</p>
+                        text: `<p>Translated: ${bar.prediction}</p>
                                <p>Actual: ${bar.act_pred}</p>
                                <p>Open: ${bar.open}</p>
                                <p>High: ${bar.high}</p>
@@ -521,7 +521,7 @@ export default {
                         id: i++,
                         time: bar.time / 1000,
                         color: { border: '#e2af80', background: '#e2af80' },
-                        text: `<p>Prediction: ${bar.prediction}</p>
+                        text: `<p>Translated: ${bar.prediction}</p>
                                <p>Actual: ${bar.act_pred}</p>
                                <p>Open: ${bar.open}</p>
                                <p>High: ${bar.high}</p>
@@ -535,7 +535,7 @@ export default {
                     actualPredictionMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
-                        text: `<p>Prediction: ${bar.prediction}</p>
+                        text: `<p>Translated: ${bar.prediction}</p>
                                <p>Actual: ${bar.act_pred}</p>
                                <p>Open: ${bar.open}</p>
                                <p>High: ${bar.high}</p>
@@ -550,7 +550,7 @@ export default {
                     actualPredictionMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
-                        text: `<p>Prediction: ${bar.prediction}</p>
+                        text: `<p>Translated: ${bar.prediction}</p>
                                <p>Actual: ${bar.act_pred}</p>
                                <p>Open: ${bar.open}</p>
                                <p>High: ${bar.high}</p>
@@ -564,7 +564,7 @@ export default {
                     actualPredictionMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
-                        text: `<p>Prediction: ${bar.prediction}</p>
+                        text: `<p>Translated: ${bar.prediction}</p>
                                <p>Actual: ${bar.act_pred}</p>
                                <p>Open: ${bar.open}</p>
                                <p>High: ${bar.high}</p>
