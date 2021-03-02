@@ -91,7 +91,14 @@ export default {
                         price_in: bar.price_in,
                         price_out: bar.price_out,
                         nbars: bar.nbars,
-                        prediction: bar.prediction
+                        prediction: bar.prediction,
+                        act_pred: bar.act_pred,
+                        date_in: bar.date_in,
+                        date_out: bar.date_out,
+                        o: bar.o,
+                        h: bar.h,
+                        l: bar.l,
+                        c: bar.c
                     }];
                 });
             }
@@ -237,40 +244,100 @@ export default {
             backtests_data.forEach(bar => {
                 let predictionMarkObject;
     
-                 
-                if(bar.prediction == null) {
+                if(bar.act_pred == null || bar.act_pred == 0.0000123) {
                     predictionMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
                         color: { border: '#c7c7c7', background: '#c7c7c7' },
+                        text: `<p>Prediction: ${bar.prediction}</p>
+                               <p>Actual: ${bar.act_pred}</p>
+                               <p>Open: ${bar.o}</p>
+                               <p>High: ${bar.h}</p>
+                               <p>Low: ${bar.l}</p>
+                               <p>Close: ${bar.c}</p>`,
                         minSize: 2
                     }
                 }
-                
-                else if(bar.prediction == 1) {
+
+                else if(getPredictionInIntegerFormat(bar.act_pred) == 0) {
                     predictionMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
-                        color: { border: '#000', background: '#fff' },
+                        color: { border: '#966330', background: '#966330' },
+                        text: `<p>Prediction: ${bar.prediction}</p>
+                               <p>Actual: ${bar.act_pred}</p>
+                               <p>Open: ${bar.o}</p>
+                               <p>High: ${bar.h}</p>
+                               <p>Low: ${bar.l}</p>
+                               <p>Close: ${bar.c}</p>`,
                         minSize: 2
                     }
                 }
                 
+                else if(getPredictionInIntegerFormat(bar.act_pred) == 1) {
+                    predictionMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        color: { border: '#e2af80', background: '#e2af80' },
+                        text: `<p>Prediction: ${bar.prediction}</p>
+                               <p>Actual: ${bar.act_pred}</p>
+                               <p>Open: ${bar.o}</p>
+                               <p>High: ${bar.h}</p>
+                               <p>Low: ${bar.l}</p>
+                               <p>Close: ${bar.c}</p>`,
+                        minSize: 2
+                    }
+                }
+
+                else if(getPredictionInIntegerFormat(bar.act_pred) == 2) {
+                    predictionMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        text: `<p>Prediction: ${bar.prediction}</p>
+                               <p>Actual: ${bar.act_pred}</p>
+                               <p>Open: ${bar.o}</p>
+                               <p>High: ${bar.h}</p>
+                               <p>Low: ${bar.l}</p>
+                               <p>Close: ${bar.c}</p>`,
+                        color: { border: '#00ccff', background: '#00ccff' },
+                        minSize: 2
+                    }
+                }
+
+                else if(getPredictionInIntegerFormat(bar.act_pred) == 3) {
+                    predictionMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        text: `<p>Prediction: ${bar.prediction}</p>
+                               <p>Actual: ${bar.act_pred}</p>
+                               <p>Open: ${bar.o}</p>
+                               <p>High: ${bar.h}</p>
+                               <p>Low: ${bar.l}</p>
+                               <p>Close: ${bar.c}</p>`,
+                        color: { border: '#0000a0', background: '#0000a0' },
+                        minSize: 2
+                    }
+                }
                 else {
                     predictionMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
-                        color: bar.prediction == 0 ? { border: '#b00000', background: '#b00000' } : 
-                                                    { border: '#007818', background: '#007818' },
+                        text: `<p>Prediction: ${bar.prediction}</p>
+                               <p>Actual: ${bar.act_pred}</p>
+                               <p>Open: ${bar.o}</p>
+                               <p>High: ${bar.h}</p>
+                               <p>Low: ${bar.l}</p>
+                               <p>Close: ${bar.c}</p>`,
+                        color: { border: '#000', background: '#fff' },
                         minSize: 2
                     }
                 }
-    
+
                 marks = [...marks, predictionMarkObject]
-    
+
                 if(bar.direction != null) {
                     let markSize;
-    
+
                     if(bar.pnl >= 0) {
                         if(bar.pnl <= 5)
                             markSize = 20;
@@ -303,22 +370,25 @@ export default {
                         else
                             markSize = 44;
                     }
-    
+
                     let hoverBoxText = `<p>PNL: ${bar.pnl}</p>` +
                                         `<p>Price In: ${bar.price_in.toString()}</p>` +
                                         `<p>Price Out: ${bar.price_out.toString()}</p>` +
+                                        `<p>Date In: ${bar.date_in}</p>` +
+                                        `<p>Date Out: ${bar.date_out}</p>` +
                                         `<p>nbars: ${bar.nbars}</p>`;
-    
+
                     let markObject = {
                         id: i++,
                         time: bar.time / 1000,
-                        color: bar.pnl >= 0 ? 'green' : 'red',
+                        color: bar.pnl >= 0 ? { border: '#32cd32', background: '#32cd32' } : 
+                                              { border: '#d63c2d', background: '#d63c2d' },
                         text:  hoverBoxText,
                         label: bar.direction == 'long' ? 'L' : 'S',
                         labelFontColor: '#ffffff',
                         minSize: markSize 
                     }
-    
+
                     marks = [...marks, markObject];
                 }
             });
