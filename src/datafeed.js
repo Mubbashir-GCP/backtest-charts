@@ -152,7 +152,8 @@ export default {
                         prediction: bar.prediction,
                         act_pred: bar.act_pred,
                         date_in: bar.date_in,
-                        date_out: bar.date_out
+                        date_out: bar.date_out,
+                        translated: bar.translated
                     }];
                 });
                 console.log(`[getBars]: returned ${backtests_data.length} bar(s)`);
@@ -391,15 +392,16 @@ export default {
 
         else if(!backtests_data[0].hasOwnProperty('match_or_no_match')) {
             backtests_data.forEach(bar => {
-                let translatedMarkObject;
+                let predictionMarkObject;
 
                 if(bar.prediction == null || Number(bar.prediction) == 0.0000123) {
-                    translatedMarkObject = {
+                    predictionMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
                         color: { border: '#c7c7c7', background: '#c7c7c7' },
-                        text: `<p>Translated: ${bar.prediction}</p>
-                               <p>Actual: ${bar.act_pred}</p>
+                        text: `<p>Actual: ${bar.act_pred}</p>
+                               <p>Translated: ${bar.translated}</p>
+                               <p>Prediction: ${bar.prediction}</p>
                                <p>Open: ${bar.open}</p>
                                <p>High: ${bar.high}</p>
                                <p>Low: ${bar.low}</p>
@@ -409,12 +411,13 @@ export default {
                 }
 
                 else if(getPredictionInIntegerFormat(Number(bar.prediction)) == 0) {
-                    translatedMarkObject = {
+                    predictionMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
                         color: { border: '#966330', background: '#fff' },
-                        text: `<p>Translated: ${bar.prediction}</p>
-                               <p>Actual: ${bar.act_pred}</p>
+                        text: `<p>Actual: ${bar.act_pred}</p>
+                               <p>Translated: ${bar.translated}</p>
+                               <p>Prediction: ${bar.prediction}</p>
                                <p>Open: ${bar.open}</p>
                                <p>High: ${bar.high}</p>
                                <p>Low: ${bar.low}</p>
@@ -424,12 +427,13 @@ export default {
                 }
                 
                 else if(getPredictionInIntegerFormat(Number(bar.prediction)) == 1) {
-                    translatedMarkObject = {
+                    predictionMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
                         color: { border: '#000', background: '#fff' },
-                        text: `<p>Translated: ${bar.prediction}</p>
-                               <p>Actual: ${bar.act_pred}</p>
+                        text: `<p>Actual: ${bar.act_pred}</p>
+                               <p>Translated: ${bar.translated}</p>
+                               <p>Prediction: ${bar.prediction}</p>
                                <p>Open: ${bar.open}</p>
                                <p>High: ${bar.high}</p>
                                <p>Low: ${bar.low}</p>
@@ -439,11 +443,12 @@ export default {
                 }
 
                 else if(getPredictionInIntegerFormat(Number(bar.prediction)) == 2) {
-                    translatedMarkObject = {
+                    predictionMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
-                        text: `<p>Translated: ${bar.prediction}</p>
-                               <p>Actual: ${bar.act_pred}</p>
+                        text: `<p>Actual: ${bar.act_pred}</p>
+                               <p>Translated: ${bar.translated}</p>
+                               <p>Prediction: ${bar.prediction}</p>
                                <p>Open: ${bar.open}</p>
                                <p>High: ${bar.high}</p>
                                <p>Low: ${bar.low}</p>
@@ -454,11 +459,111 @@ export default {
                 }
 
                 else if(getPredictionInIntegerFormat(Number(bar.prediction)) == 3) {
+                    predictionMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        text: `<p>Actual: ${bar.act_pred}</p>
+                               <p>Translated: ${bar.translated}</p>
+                               <p>Prediction: ${bar.prediction}</p>
+                               <p>Open: ${bar.open}</p>
+                               <p>High: ${bar.high}</p>
+                               <p>Low: ${bar.low}</p>
+                               <p>Close: ${bar.close}</p>`,
+                        color: { border: '#0000a0', background: '#fff' },
+                        minSize: 2
+                    }
+                }
+                else {
+                    predictionMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        text: `<p>Actual: ${bar.act_pred}</p>
+                               <p>Translated: ${bar.translated}</p>
+                               <p>Prediction: ${bar.prediction}</p>
+                               <p>Open: ${bar.open}</p>
+                               <p>High: ${bar.high}</p>
+                               <p>Low: ${bar.low}</p>
+                               <p>Close: ${bar.close}</p>`,
+                        color: { border: '#000', background: '#fff' },
+                        minSize: 2
+                    }
+                }
+
+                marks = [...marks, predictionMarkObject]
+
+                let translatedMarkObject;
+
+                if(bar.translated == null || Number(bar.translated) == 0.0000123) {
                     translatedMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
-                        text: `<p>Translated: ${bar.prediction}</p>
-                               <p>Actual: ${bar.act_pred}</p>
+                        color: { border: '#c7c7c7', background: '#c7c7c7' },
+                        text: `<p>Actual: ${bar.act_pred}</p>
+                               <p>Translated: ${bar.translated}</p>
+                               <p>Prediction: ${bar.prediction}</p>
+                               <p>Open: ${bar.open}</p>
+                               <p>High: ${bar.high}</p>
+                               <p>Low: ${bar.low}</p>
+                               <p>Close: ${bar.close}</p>`,
+                        minSize: 2
+                    }
+                }
+
+                else if(getPredictionInIntegerFormat(Number(bar.translated)) == 0) {
+                    translatedMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        color: { border: '#966330', background: '#fff' },
+                        text: `<p>Actual: ${bar.act_pred}</p>
+                               <p>Translated: ${bar.translated}</p>
+                               <p>Prediction: ${bar.prediction}</p>
+                               <p>Open: ${bar.open}</p>
+                               <p>High: ${bar.high}</p>
+                               <p>Low: ${bar.low}</p>
+                               <p>Close: ${bar.close}</p>`,
+                        minSize: 2
+                    }
+                }
+                
+                else if(getPredictionInIntegerFormat(Number(bar.translated)) == 1) {
+                    translatedMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        color: { border: '#000', background: '#fff' },
+                        text: `<p>Actual: ${bar.act_pred}</p>
+                               <p>Translated: ${bar.translated}</p>
+                               <p>Prediction: ${bar.prediction}</p>
+                               <p>Open: ${bar.open}</p>
+                               <p>High: ${bar.high}</p>
+                               <p>Low: ${bar.low}</p>
+                               <p>Close: ${bar.close}</p>`,
+                        minSize: 2
+                    }
+                }
+
+                else if(getPredictionInIntegerFormat(Number(bar.translated)) == 2) {
+                    translatedMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        text: `<p>Actual: ${bar.act_pred}</p>
+                               <p>Translated: ${bar.translated}</p>
+                               <p>Prediction: ${bar.prediction}</p>
+                               <p>Open: ${bar.open}</p>
+                               <p>High: ${bar.high}</p>
+                               <p>Low: ${bar.low}</p>
+                               <p>Close: ${bar.close}</p>`,
+                        color: { border: '#00ccff', background: '#fff' },
+                        minSize: 2
+                    }
+                }
+
+                else if(getPredictionInIntegerFormat(Number(bar.translated)) == 3) {
+                    translatedMarkObject = {
+                        id: i++,
+                        time: bar.time / 1000,
+                        text: `<p>Actual: ${bar.act_pred}</p>
+                               <p>Translated: ${bar.translated}</p>
+                               <p>Prediction: ${bar.prediction}</p>
                                <p>Open: ${bar.open}</p>
                                <p>High: ${bar.high}</p>
                                <p>Low: ${bar.low}</p>
@@ -471,8 +576,9 @@ export default {
                     translatedMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
-                        text: `<p>Translated: ${bar.prediction}</p>
-                               <p>Actual: ${bar.act_pred}</p>
+                        text: `<p>Actual: ${bar.act_pred}</p>
+                               <p>Translated: ${bar.translated}</p>
+                               <p>Prediction: ${bar.prediction}</p>
                                <p>Open: ${bar.open}</p>
                                <p>High: ${bar.high}</p>
                                <p>Low: ${bar.low}</p>
@@ -491,8 +597,9 @@ export default {
                         id: i++,
                         time: bar.time / 1000,
                         color: { border: '#c7c7c7', background: '#c7c7c7' },
-                        text: `<p>Translated: ${bar.prediction}</p>
-                               <p>Actual: ${bar.act_pred}</p>
+                        text: `<p>Actual: ${bar.act_pred}</p>
+                               <p>Translated: ${bar.translated}</p>
+                               <p>Prediction: ${bar.prediction}</p>
                                <p>Open: ${bar.open}</p>
                                <p>High: ${bar.high}</p>
                                <p>Low: ${bar.low}</p>
@@ -506,8 +613,9 @@ export default {
                         id: i++,
                         time: bar.time / 1000,
                         color: { border: '#966330', background: '#966330' },
-                        text: `<p>Translated: ${bar.prediction}</p>
-                               <p>Actual: ${bar.act_pred}</p>
+                        text: `<p>Actual: ${bar.act_pred}</p>
+                               <p>Translated: ${bar.translated}</p>
+                               <p>Prediction: ${bar.prediction}</p>
                                <p>Open: ${bar.open}</p>
                                <p>High: ${bar.high}</p>
                                <p>Low: ${bar.low}</p>
@@ -521,8 +629,9 @@ export default {
                         id: i++,
                         time: bar.time / 1000,
                         color: { border: '#e2af80', background: '#e2af80' },
-                        text: `<p>Translated: ${bar.prediction}</p>
-                               <p>Actual: ${bar.act_pred}</p>
+                        text: `<p>Actual: ${bar.act_pred}</p>
+                               <p>Translated: ${bar.translated}</p>
+                               <p>Prediction: ${bar.prediction}</p>
                                <p>Open: ${bar.open}</p>
                                <p>High: ${bar.high}</p>
                                <p>Low: ${bar.low}</p>
@@ -535,8 +644,9 @@ export default {
                     actualPredictionMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
-                        text: `<p>Translated: ${bar.prediction}</p>
-                               <p>Actual: ${bar.act_pred}</p>
+                        text: `<p>Actual: ${bar.act_pred}</p>
+                               <p>Translated: ${bar.translated}</p>
+                               <p>Prediction: ${bar.prediction}</p>
                                <p>Open: ${bar.open}</p>
                                <p>High: ${bar.high}</p>
                                <p>Low: ${bar.low}</p>
@@ -550,8 +660,9 @@ export default {
                     actualPredictionMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
-                        text: `<p>Translated: ${bar.prediction}</p>
-                               <p>Actual: ${bar.act_pred}</p>
+                        text: `<p>Actual: ${bar.act_pred}</p>
+                               <p>Translated: ${bar.translated}</p>
+                               <p>Prediction: ${bar.prediction}</p>
                                <p>Open: ${bar.open}</p>
                                <p>High: ${bar.high}</p>
                                <p>Low: ${bar.low}</p>
@@ -564,8 +675,9 @@ export default {
                     actualPredictionMarkObject = {
                         id: i++,
                         time: bar.time / 1000,
-                        text: `<p>Translated: ${bar.prediction}</p>
-                               <p>Actual: ${bar.act_pred}</p>
+                        text: `<p>Actual: ${bar.act_pred}</p>
+                               <p>Translated: ${bar.translated}</p>
+                               <p>Prediction: ${bar.prediction}</p>
                                <p>Open: ${bar.open}</p>
                                <p>High: ${bar.high}</p>
                                <p>Low: ${bar.low}</p>
