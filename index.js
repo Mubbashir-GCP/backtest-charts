@@ -12,13 +12,13 @@ if(backtestId != null) {
     innerHTML = "Cumulative PNL";
     
     document.getElementById("actual_labels_chart_heading").
-    innerHTML = "Actual Labels (Not Applicable)";
+    innerHTML = "Actual Labels";
     
     document.getElementById("predicted_labels_chart_heading").
-    innerHTML = "Predicted Labels (Not Applicable)";
+    innerHTML = "Predicted Labels";
 
     document.getElementById("match_or_no_match_chart_heading").
-    innerHTML = "Match/No Match (Not Applicable)";
+    innerHTML = "Actual vs Predicted";
 }
 
 else if(pctModelUniqueId != null) {
