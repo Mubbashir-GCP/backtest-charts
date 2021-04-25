@@ -8,31 +8,31 @@ let pktrQueryText = `with a1 as (select * from public.consolidated_results_pt
   where  model_unique_id = $1
   order by timestamps asc)
 
-select row_to_json(a1) from a1
+select row_to_json(a1) from a1 limit 1000
 `
 
 let pctQueryText = `with a1 as (select * from public.consolidated_results
   where  model_unique_id = $1 
   order by timestamps asc)
 
-select row_to_json(a1) from a1`;
+select row_to_json(a1) from a1  limit 1000`;
 
 let backtestQueryText = `with a1 as (
   select distinct * from get_chart_data($1) order by timestamp_ asc )
 
-  select row_to_json(a1) from a1`;
+  select row_to_json(a1) from a1 limit 1000`;
 
 let almPctQueryText = `with a1 as (
   select * from public.consolidated_results_alm
   where model_unique_id = $1 order by timestamps asc limit 1000)
   
-  select row_to_json(a1) from a1`;
+  select row_to_json(a1) from a1 limit 1000`;
 
 let almPktrQueryText = `with a1 as (
   select * from public.consolidated_results_alm_pt
   where model_unique_id = $1 order by timestamps asc limit 1000)
   
-  select row_to_json(a1) from a1`;
+  select row_to_json(a1) from a1 limit 1000`;
 
 let graphType;
 
