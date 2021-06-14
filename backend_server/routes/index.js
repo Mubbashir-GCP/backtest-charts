@@ -44,10 +44,10 @@ let almPctModelUniqueId = '';
 let almPktrModelUniqueId = '';
 
 const client = new Client({
-  user: 'gcp_read_only',
-  host: '35.223.254.139',
+  user: 'gcpv1_colab_server',
+  host: 'gcp01.dynamic-dns.net',
   database: 'greencanvas',
-  password: 'gc$$2929%',
+  password: 'gc$%#798w',
   port: 5432
 });
 
