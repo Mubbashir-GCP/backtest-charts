@@ -18,7 +18,7 @@ let pctQueryText = `with a1 as (select * from public.consolidated_results
 select row_to_json(a1) from a1`;
 
 let backtestQueryText = `with a1 as (
-  select distinct * from get_chart_data($1) order by timestamp_ asc )
+  select distinct * from get_chart_data($1) order by timestamp_ asc)
 
   select row_to_json(a1) from a1`;
 

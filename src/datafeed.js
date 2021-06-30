@@ -202,492 +202,492 @@ export default {
         console.log(backtests_data);
         let i = 0;
 
-        if(backtests_data[0].hasOwnProperty('almModel')) {
-            if(backtests_data[0].hasOwnProperty('almPct')) {
-                backtests_data.forEach(bar => {
-                    let predictionMarkObject;
+        // if(backtests_data[0].hasOwnProperty('almModel')) {
+        //     if(backtests_data[0].hasOwnProperty('almPct')) {
+        //         backtests_data.forEach(bar => {
+        //             let predictionMarkObject;
     
-                    if(bar.prediction == null || bar.prediction == 0.0000123) {
-                        predictionMarkObject = {
-                            id: i++,
-                            time: bar.time / 1000,
-                            color: { border: '#c7c7c7', background: '#c7c7c7' },
-                            text: `<p>Prediction: ${bar.prediction}</p>`,
-                            minSize: 2
-                        }
-                    }
+        //             if(bar.prediction == null || bar.prediction == 0.0000123) {
+        //                 predictionMarkObject = {
+        //                     id: i++,
+        //                     time: bar.time / 1000,
+        //                     color: { border: '#c7c7c7', background: '#c7c7c7' },
+        //                     text: `<p>Prediction: ${bar.prediction}</p>`,
+        //                     minSize: 2
+        //                 }
+        //             }
     
-                    else if(getPredictionInIntegerFormat(bar.prediction) == 0) {
-                        predictionMarkObject = {
-                            id: i++,
-                            time: bar.time / 1000,
-                            color: { border: '#966330', background: '#966330' },
-                            text: `<p>Prediction: ${bar.prediction}</p>`,
-                            minSize: 2
-                        }
-                    }
+        //             else if(getPredictionInIntegerFormat(bar.prediction) == 0) {
+        //                 predictionMarkObject = {
+        //                     id: i++,
+        //                     time: bar.time / 1000,
+        //                     color: { border: '#966330', background: '#966330' },
+        //                     text: `<p>Prediction: ${bar.prediction}</p>`,
+        //                     minSize: 2
+        //                 }
+        //             }
                     
-                    else if(getPredictionInIntegerFormat(bar.prediction) == 1) {
-                        predictionMarkObject = {
-                            id: i++,
-                            time: bar.time / 1000,
-                            color: { border: '#000', background: '#fff' },
-                            text: `<p>Prediction: ${bar.prediction}</p>`,
-                            minSize: 2
-                        }
-                    }
+        //             else if(getPredictionInIntegerFormat(bar.prediction) == 1) {
+        //                 predictionMarkObject = {
+        //                     id: i++,
+        //                     time: bar.time / 1000,
+        //                     color: { border: '#000', background: '#fff' },
+        //                     text: `<p>Prediction: ${bar.prediction}</p>`,
+        //                     minSize: 2
+        //                 }
+        //             }
     
-                    else if(getPredictionInIntegerFormat(bar.prediction) == 2) {
-                        predictionMarkObject = {
-                            id: i++,
-                            time: bar.time / 1000,
-                            text: `<p>Prediction: ${bar.prediction}</p>`,
-                            color: { border: '#0000a0', background: '#0000a0' },
-                            minSize: 2
-                        }
-                    }
+        //             else if(getPredictionInIntegerFormat(bar.prediction) == 2) {
+        //                 predictionMarkObject = {
+        //                     id: i++,
+        //                     time: bar.time / 1000,
+        //                     text: `<p>Prediction: ${bar.prediction}</p>`,
+        //                     color: { border: '#0000a0', background: '#0000a0' },
+        //                     minSize: 2
+        //                 }
+        //             }
     
-                    marks = [...marks, predictionMarkObject]
-                })
-                i = 0;
-                onDataCallback(marks);
-                backtests_data = [];
-                console.log(marks);
-            }
-            else {
-                backtests_data.forEach(bar => {
-                    let predictionMarkObject;
+        //             marks = [...marks, predictionMarkObject]
+        //         })
+        //         i = 0;
+        //         onDataCallback(marks);
+        //         backtests_data = [];
+        //         console.log(marks);
+        //     }
+        //     else {
+        //         backtests_data.forEach(bar => {
+        //             let predictionMarkObject;
     
-                    if(bar.prediction == null || bar.prediction == 0.0000123) {
-                        predictionMarkObject = {
-                            id: i++,
-                            time: bar.time / 1000,
-                            color: { border: '#c7c7c7', background: '#c7c7c7' },
-                            text: `<p>Prediction: ${bar.prediction}</p>`,
-                            minSize: 2
-                        }
-                    }
+        //             if(bar.prediction == null || bar.prediction == 0.0000123) {
+        //                 predictionMarkObject = {
+        //                     id: i++,
+        //                     time: bar.time / 1000,
+        //                     color: { border: '#c7c7c7', background: '#c7c7c7' },
+        //                     text: `<p>Prediction: ${bar.prediction}</p>`,
+        //                     minSize: 2
+        //                 }
+        //             }
     
-                    else if(getPredictionInIntegerFormat(bar.prediction) == 0) {
-                        predictionMarkObject = {
-                            id: i++,
-                            time: bar.time / 1000,
-                            color: { border: '#966330', background: '#966330' },
-                            text: `<p>Prediction: ${bar.prediction}</p>`,
-                            minSize: 2
-                        }
-                    }
+        //             else if(getPredictionInIntegerFormat(bar.prediction) == 0) {
+        //                 predictionMarkObject = {
+        //                     id: i++,
+        //                     time: bar.time / 1000,
+        //                     color: { border: '#966330', background: '#966330' },
+        //                     text: `<p>Prediction: ${bar.prediction}</p>`,
+        //                     minSize: 2
+        //                 }
+        //             }
                     
-                    else if(getPredictionInIntegerFormat(bar.prediction) == 1) {
-                        predictionMarkObject = {
-                            id: i++,
-                            time: bar.time / 1000,
-                            color: { border: '#e2af80', background: '#e2af80' },
-                            text: `<p>Prediction: ${bar.prediction}</p>`,
-                            minSize: 2
-                        }
-                    }
+        //             else if(getPredictionInIntegerFormat(bar.prediction) == 1) {
+        //                 predictionMarkObject = {
+        //                     id: i++,
+        //                     time: bar.time / 1000,
+        //                     color: { border: '#e2af80', background: '#e2af80' },
+        //                     text: `<p>Prediction: ${bar.prediction}</p>`,
+        //                     minSize: 2
+        //                 }
+        //             }
     
-                    else if(getPredictionInIntegerFormat(bar.prediction) == 2) {
-                        predictionMarkObject = {
-                            id: i++,
-                            time: bar.time / 1000,
-                            text: `<p>Prediction: ${bar.prediction}</p>`,
-                            color: { border: '#00ccff', background: '#00ccff' },
-                            minSize: 2
-                        }
-                    }
+        //             else if(getPredictionInIntegerFormat(bar.prediction) == 2) {
+        //                 predictionMarkObject = {
+        //                     id: i++,
+        //                     time: bar.time / 1000,
+        //                     text: `<p>Prediction: ${bar.prediction}</p>`,
+        //                     color: { border: '#00ccff', background: '#00ccff' },
+        //                     minSize: 2
+        //                 }
+        //             }
     
-                    else if(getPredictionInIntegerFormat(bar.prediction) == 3) {
-                        predictionMarkObject = {
-                            id: i++,
-                            time: bar.time / 1000,
-                            color: { border: '#0000a0', background: '#0000a0' },
-                            text: `<p>Prediction: ${bar.prediction}</p>`,
-                            minSize: 2
-                        }
-                    }
+        //             else if(getPredictionInIntegerFormat(bar.prediction) == 3) {
+        //                 predictionMarkObject = {
+        //                     id: i++,
+        //                     time: bar.time / 1000,
+        //                     color: { border: '#0000a0', background: '#0000a0' },
+        //                     text: `<p>Prediction: ${bar.prediction}</p>`,
+        //                     minSize: 2
+        //                 }
+        //             }
                     
-                    else {
-                        predictionMarkObject = {
-                            id: i++,
-                            time: bar.time / 1000,
-                            color:  { border: '#000', background: '#fff' } ,
-                            text: `<p>Prediction: ${bar.prediction}</p>`,
-                            minSize: 2
-                        }
-                    }
+        //             else {
+        //                 predictionMarkObject = {
+        //                     id: i++,
+        //                     time: bar.time / 1000,
+        //                     color:  { border: '#000', background: '#fff' } ,
+        //                     text: `<p>Prediction: ${bar.prediction}</p>`,
+        //                     minSize: 2
+        //                 }
+        //             }
     
-                    marks = [...marks, predictionMarkObject]
-                })
-                i = 0;
-                onDataCallback(marks);
-                backtests_data = [];
-                console.log(marks);
-            }
-        }
+        //             marks = [...marks, predictionMarkObject]
+        //         })
+        //         i = 0;
+        //         onDataCallback(marks);
+        //         backtests_data = [];
+        //         console.log(marks);
+        //     }
+        // }
 
-        else if(backtests_data[0].hasOwnProperty('missed_opportunities')) {
+        // if(backtests_data[0].hasOwnProperty('missed_opportunities')) {
+        //     backtests_data.forEach(bar => {
+        //         let predictionMarkObject;
+
+        //         if(bar.prediction == null || bar.prediction == 0.0000123) {
+        //             predictionMarkObject = {
+        //                 id: i++,
+        //                 time: bar.time / 1000,
+        //                 color: { border: '#c7c7c7', background: '#c7c7c7' },
+        //                 text: `<p>Prediction: ${bar.prediction}</p>`,
+        //                 minSize: 2
+        //             }
+        //         }
+
+        //         else if(getPredictionInIntegerFormat(bar.prediction) == 0) {
+        //             predictionMarkObject = {
+        //                 id: i++,
+        //                 time: bar.time / 1000,
+        //                 color: { border: '#966330', background: '#966330' },
+        //                 text: `<p>Prediction: ${bar.prediction}</p>`,
+        //                 minSize: 2
+        //             }
+        //         }
+                
+        //         else if(getPredictionInIntegerFormat(bar.prediction) == 1) {
+        //             predictionMarkObject = {
+        //                 id: i++,
+        //                 time: bar.time / 1000,
+        //                 color: { border: '#000', background: '#fff' },
+        //                 text: `<p>Prediction: ${bar.prediction}</p>`,
+        //                 minSize: 2
+        //             }
+        //         }
+
+        //         else if(getPredictionInIntegerFormat(bar.prediction) == 2) {
+        //             predictionMarkObject = {
+        //                 id: i++,
+        //                 time: bar.time / 1000,
+        //                 text: `<p>Prediction: ${bar.prediction}</p>`,
+        //                 color: { border: '#0000a0', background: '#0000a0' },
+        //                 minSize: 2
+        //             }
+        //         }
+
+        //         marks = [...marks, predictionMarkObject]
+
+        //         let markObject = {
+        //             id: i++,
+        //             time: bar.time / 1000,
+        //             color: bar.match_or_no_match == 'No Match!' ? { border: '#d63c2d', background: '#d63c2d' } : 
+        //                                                           { border: '#32cd32', background: '#32cd32' },
+        //             text: `<p>${bar.match_or_no_match}</p>`,
+        //             minSize: 2
+        //         }
+
+        //         marks = [...marks, markObject];
+        //     })
+        //     i = 0;
+        //     onDataCallback(marks);
+        //     backtests_data = [];
+        //     console.log(marks);
+        // }
+
+        if(!backtests_data[0].hasOwnProperty('match_or_no_match')) {
             backtests_data.forEach(bar => {
                 let predictionMarkObject;
 
-                if(bar.prediction == null || bar.prediction == 0.0000123) {
-                    predictionMarkObject = {
-                        id: i++,
-                        time: bar.time / 1000,
-                        color: { border: '#c7c7c7', background: '#c7c7c7' },
-                        text: `<p>Prediction: ${bar.prediction}</p>`,
-                        minSize: 2
-                    }
-                }
+                // if(bar.prediction == null || Number(bar.prediction) == 0.0000123) {
+                //     predictionMarkObject = {
+                //         id: i++,
+                //         time: bar.time / 1000,
+                //         color: { border: '#c7c7c7', background: '#c7c7c7' },
+                //         text: `<p>Actual: ${bar.act_pred}</p>
+                //                <p>Translated: ${bar.translated}</p>
+                //                <p>Prediction: ${bar.prediction}</p>
+                //                <p>Open: ${bar.open}</p>
+                //                <p>High: ${bar.high}</p>
+                //                <p>Low: ${bar.low}</p>
+                //                <p>Close: ${bar.close}</p>`,
+                //         minSize: 2
+                //     }
+                // }
 
-                else if(getPredictionInIntegerFormat(bar.prediction) == 0) {
-                    predictionMarkObject = {
-                        id: i++,
-                        time: bar.time / 1000,
-                        color: { border: '#966330', background: '#966330' },
-                        text: `<p>Prediction: ${bar.prediction}</p>`,
-                        minSize: 2
-                    }
-                }
+                // else if(getPredictionInIntegerFormat(Number(bar.prediction)) == 0) {
+                //     predictionMarkObject = {
+                //         id: i++,
+                //         time: bar.time / 1000,
+                //         color: { border: '#966330', background: '#fff' },
+                //         text: `<p>Actual: ${bar.act_pred}</p>
+                //                <p>Translated: ${bar.translated}</p>
+                //                <p>Prediction: ${bar.prediction}</p>
+                //                <p>Open: ${bar.open}</p>
+                //                <p>High: ${bar.high}</p>
+                //                <p>Low: ${bar.low}</p>
+                //                <p>Close: ${bar.close}</p>`,
+                //         minSize: 2
+                //     }
+                // }
                 
-                else if(getPredictionInIntegerFormat(bar.prediction) == 1) {
-                    predictionMarkObject = {
-                        id: i++,
-                        time: bar.time / 1000,
-                        color: { border: '#000', background: '#fff' },
-                        text: `<p>Prediction: ${bar.prediction}</p>`,
-                        minSize: 2
-                    }
-                }
+                // else if(getPredictionInIntegerFormat(Number(bar.prediction)) == 1) {
+                //     predictionMarkObject = {
+                //         id: i++,
+                //         time: bar.time / 1000,
+                //         color: { border: '#000', background: '#fff' },
+                //         text: `<p>Actual: ${bar.act_pred}</p>
+                //                <p>Translated: ${bar.translated}</p>
+                //                <p>Prediction: ${bar.prediction}</p>
+                //                <p>Open: ${bar.open}</p>
+                //                <p>High: ${bar.high}</p>
+                //                <p>Low: ${bar.low}</p>
+                //                <p>Close: ${bar.close}</p>`,
+                //         minSize: 2
+                //     }
+                // }
 
-                else if(getPredictionInIntegerFormat(bar.prediction) == 2) {
-                    predictionMarkObject = {
-                        id: i++,
-                        time: bar.time / 1000,
-                        text: `<p>Prediction: ${bar.prediction}</p>`,
-                        color: { border: '#0000a0', background: '#0000a0' },
-                        minSize: 2
-                    }
-                }
+                // else if(getPredictionInIntegerFormat(Number(bar.prediction)) == 2) {
+                //     predictionMarkObject = {
+                //         id: i++,
+                //         time: bar.time / 1000,
+                //         text: `<p>Actual: ${bar.act_pred}</p>
+                //                <p>Translated: ${bar.translated}</p>
+                //                <p>Prediction: ${bar.prediction}</p>
+                //                <p>Open: ${bar.open}</p>
+                //                <p>High: ${bar.high}</p>
+                //                <p>Low: ${bar.low}</p>
+                //                <p>Close: ${bar.close}</p>`,
+                //         color: { border: '#00ccff', background: '#fff' },
+                //         minSize: 2
+                //     }
+                // }
 
-                marks = [...marks, predictionMarkObject]
+                // else if(getPredictionInIntegerFormat(Number(bar.prediction)) == 3) {
+                //     predictionMarkObject = {
+                //         id: i++,
+                //         time: bar.time / 1000,
+                //         text: `<p>Actual: ${bar.act_pred}</p>
+                //                <p>Translated: ${bar.translated}</p>
+                //                <p>Prediction: ${bar.prediction}</p>
+                //                <p>Open: ${bar.open}</p>
+                //                <p>High: ${bar.high}</p>
+                //                <p>Low: ${bar.low}</p>
+                //                <p>Close: ${bar.close}</p>`,
+                //         color: { border: '#0000a0', background: '#fff' },
+                //         minSize: 2
+                //     }
+                // }
+                // else {
+                //     predictionMarkObject = {
+                //         id: i++,
+                //         time: bar.time / 1000,
+                //         text: `<p>Actual: ${bar.act_pred}</p>
+                //                <p>Translated: ${bar.translated}</p>
+                //                <p>Prediction: ${bar.prediction}</p>
+                //                <p>Open: ${bar.open}</p>
+                //                <p>High: ${bar.high}</p>
+                //                <p>Low: ${bar.low}</p>
+                //                <p>Close: ${bar.close}</p>`,
+                //         color: { border: '#000', background: '#fff' },
+                //         minSize: 2
+                //     }
+                // }
 
-                let markObject = {
-                    id: i++,
-                    time: bar.time / 1000,
-                    color: bar.match_or_no_match == 'No Match!' ? { border: '#d63c2d', background: '#d63c2d' } : 
-                                                                  { border: '#32cd32', background: '#32cd32' },
-                    text: `<p>${bar.match_or_no_match}</p>`,
-                    minSize: 2
-                }
+                // marks = [...marks, predictionMarkObject]
 
-                marks = [...marks, markObject];
-            })
-            i = 0;
-            onDataCallback(marks);
-            backtests_data = [];
-            console.log(marks);
-        }
+                // let translatedMarkObject;
 
-        else if(!backtests_data[0].hasOwnProperty('match_or_no_match')) {
-            backtests_data.forEach(bar => {
-                let predictionMarkObject;
+                // if(bar.translated == null || Number(bar.translated) == 0.0000123) {
+                //     translatedMarkObject = {
+                //         id: i++,
+                //         time: bar.time / 1000,
+                //         color: { border: '#c7c7c7', background: '#c7c7c7' },
+                //         text: `<p>Actual: ${bar.act_pred}</p>
+                //                <p>Translated: ${bar.translated}</p>
+                //                <p>Prediction: ${bar.prediction}</p>
+                //                <p>Open: ${bar.open}</p>
+                //                <p>High: ${bar.high}</p>
+                //                <p>Low: ${bar.low}</p>
+                //                <p>Close: ${bar.close}</p>`,
+                //         minSize: 2
+                //     }
+                // }
 
-                if(bar.prediction == null || Number(bar.prediction) == 0.0000123) {
-                    predictionMarkObject = {
-                        id: i++,
-                        time: bar.time / 1000,
-                        color: { border: '#c7c7c7', background: '#c7c7c7' },
-                        text: `<p>Actual: ${bar.act_pred}</p>
-                               <p>Translated: ${bar.translated}</p>
-                               <p>Prediction: ${bar.prediction}</p>
-                               <p>Open: ${bar.open}</p>
-                               <p>High: ${bar.high}</p>
-                               <p>Low: ${bar.low}</p>
-                               <p>Close: ${bar.close}</p>`,
-                        minSize: 2
-                    }
-                }
-
-                else if(getPredictionInIntegerFormat(Number(bar.prediction)) == 0) {
-                    predictionMarkObject = {
-                        id: i++,
-                        time: bar.time / 1000,
-                        color: { border: '#966330', background: '#fff' },
-                        text: `<p>Actual: ${bar.act_pred}</p>
-                               <p>Translated: ${bar.translated}</p>
-                               <p>Prediction: ${bar.prediction}</p>
-                               <p>Open: ${bar.open}</p>
-                               <p>High: ${bar.high}</p>
-                               <p>Low: ${bar.low}</p>
-                               <p>Close: ${bar.close}</p>`,
-                        minSize: 2
-                    }
-                }
+                // else if(getPredictionInIntegerFormat(Number(bar.translated)) == 0) {
+                //     translatedMarkObject = {
+                //         id: i++,
+                //         time: bar.time / 1000,
+                //         color: { border: '#966330', background: '#fff' },
+                //         text: `<p>Actual: ${bar.act_pred}</p>
+                //                <p>Translated: ${bar.translated}</p>
+                //                <p>Prediction: ${bar.prediction}</p>
+                //                <p>Open: ${bar.open}</p>
+                //                <p>High: ${bar.high}</p>
+                //                <p>Low: ${bar.low}</p>
+                //                <p>Close: ${bar.close}</p>`,
+                //         minSize: 2
+                //     }
+                // }
                 
-                else if(getPredictionInIntegerFormat(Number(bar.prediction)) == 1) {
-                    predictionMarkObject = {
-                        id: i++,
-                        time: bar.time / 1000,
-                        color: { border: '#000', background: '#fff' },
-                        text: `<p>Actual: ${bar.act_pred}</p>
-                               <p>Translated: ${bar.translated}</p>
-                               <p>Prediction: ${bar.prediction}</p>
-                               <p>Open: ${bar.open}</p>
-                               <p>High: ${bar.high}</p>
-                               <p>Low: ${bar.low}</p>
-                               <p>Close: ${bar.close}</p>`,
-                        minSize: 2
-                    }
-                }
+                // else if(getPredictionInIntegerFormat(Number(bar.translated)) == 1) {
+                //     translatedMarkObject = {
+                //         id: i++,
+                //         time: bar.time / 1000,
+                //         color: { border: '#000', background: '#fff' },
+                //         text: `<p>Actual: ${bar.act_pred}</p>
+                //                <p>Translated: ${bar.translated}</p>
+                //                <p>Prediction: ${bar.prediction}</p>
+                //                <p>Open: ${bar.open}</p>
+                //                <p>High: ${bar.high}</p>
+                //                <p>Low: ${bar.low}</p>
+                //                <p>Close: ${bar.close}</p>`,
+                //         minSize: 2
+                //     }
+                // }
 
-                else if(getPredictionInIntegerFormat(Number(bar.prediction)) == 2) {
-                    predictionMarkObject = {
-                        id: i++,
-                        time: bar.time / 1000,
-                        text: `<p>Actual: ${bar.act_pred}</p>
-                               <p>Translated: ${bar.translated}</p>
-                               <p>Prediction: ${bar.prediction}</p>
-                               <p>Open: ${bar.open}</p>
-                               <p>High: ${bar.high}</p>
-                               <p>Low: ${bar.low}</p>
-                               <p>Close: ${bar.close}</p>`,
-                        color: { border: '#00ccff', background: '#fff' },
-                        minSize: 2
-                    }
-                }
+                // else if(getPredictionInIntegerFormat(Number(bar.translated)) == 2) {
+                //     translatedMarkObject = {
+                //         id: i++,
+                //         time: bar.time / 1000,
+                //         text: `<p>Actual: ${bar.act_pred}</p>
+                //                <p>Translated: ${bar.translated}</p>
+                //                <p>Prediction: ${bar.prediction}</p>
+                //                <p>Open: ${bar.open}</p>
+                //                <p>High: ${bar.high}</p>
+                //                <p>Low: ${bar.low}</p>
+                //                <p>Close: ${bar.close}</p>`,
+                //         color: { border: '#00ccff', background: '#fff' },
+                //         minSize: 2
+                //     }
+                // }
 
-                else if(getPredictionInIntegerFormat(Number(bar.prediction)) == 3) {
-                    predictionMarkObject = {
-                        id: i++,
-                        time: bar.time / 1000,
-                        text: `<p>Actual: ${bar.act_pred}</p>
-                               <p>Translated: ${bar.translated}</p>
-                               <p>Prediction: ${bar.prediction}</p>
-                               <p>Open: ${bar.open}</p>
-                               <p>High: ${bar.high}</p>
-                               <p>Low: ${bar.low}</p>
-                               <p>Close: ${bar.close}</p>`,
-                        color: { border: '#0000a0', background: '#fff' },
-                        minSize: 2
-                    }
-                }
-                else {
-                    predictionMarkObject = {
-                        id: i++,
-                        time: bar.time / 1000,
-                        text: `<p>Actual: ${bar.act_pred}</p>
-                               <p>Translated: ${bar.translated}</p>
-                               <p>Prediction: ${bar.prediction}</p>
-                               <p>Open: ${bar.open}</p>
-                               <p>High: ${bar.high}</p>
-                               <p>Low: ${bar.low}</p>
-                               <p>Close: ${bar.close}</p>`,
-                        color: { border: '#000', background: '#fff' },
-                        minSize: 2
-                    }
-                }
+                // else if(getPredictionInIntegerFormat(Number(bar.translated)) == 3) {
+                //     translatedMarkObject = {
+                //         id: i++,
+                //         time: bar.time / 1000,
+                //         text: `<p>Actual: ${bar.act_pred}</p>
+                //                <p>Translated: ${bar.translated}</p>
+                //                <p>Prediction: ${bar.prediction}</p>
+                //                <p>Open: ${bar.open}</p>
+                //                <p>High: ${bar.high}</p>
+                //                <p>Low: ${bar.low}</p>
+                //                <p>Close: ${bar.close}</p>`,
+                //         color: { border: '#0000a0', background: '#fff' },
+                //         minSize: 2
+                //     }
+                // }
+                // else {
+                //     translatedMarkObject = {
+                //         id: i++,
+                //         time: bar.time / 1000,
+                //         text: `<p>Actual: ${bar.act_pred}</p>
+                //                <p>Translated: ${bar.translated}</p>
+                //                <p>Prediction: ${bar.prediction}</p>
+                //                <p>Open: ${bar.open}</p>
+                //                <p>High: ${bar.high}</p>
+                //                <p>Low: ${bar.low}</p>
+                //                <p>Close: ${bar.close}</p>`,
+                //         color: { border: '#000', background: '#fff' },
+                //         minSize: 2
+                //     }
+                // }
 
-                marks = [...marks, predictionMarkObject]
+                // marks = [...marks, translatedMarkObject]
 
-                let translatedMarkObject;
+                // let actualPredictionMarkObject;
 
-                if(bar.translated == null || Number(bar.translated) == 0.0000123) {
-                    translatedMarkObject = {
-                        id: i++,
-                        time: bar.time / 1000,
-                        color: { border: '#c7c7c7', background: '#c7c7c7' },
-                        text: `<p>Actual: ${bar.act_pred}</p>
-                               <p>Translated: ${bar.translated}</p>
-                               <p>Prediction: ${bar.prediction}</p>
-                               <p>Open: ${bar.open}</p>
-                               <p>High: ${bar.high}</p>
-                               <p>Low: ${bar.low}</p>
-                               <p>Close: ${bar.close}</p>`,
-                        minSize: 2
-                    }
-                }
+                // if(bar.act_pred == null || bar.act_pred == 0.0000123) {
+                //     actualPredictionMarkObject = {
+                //         id: i++,
+                //         time: bar.time / 1000,
+                //         color: { border: '#c7c7c7', background: '#c7c7c7' },
+                //         text: `<p>Actual: ${bar.act_pred}</p>
+                //                <p>Translated: ${bar.translated}</p>
+                //                <p>Prediction: ${bar.prediction}</p>
+                //                <p>Open: ${bar.open}</p>
+                //                <p>High: ${bar.high}</p>
+                //                <p>Low: ${bar.low}</p>
+                //                <p>Close: ${bar.close}</p>`,
+                //         minSize: 2
+                //     }
+                // }
 
-                else if(getPredictionInIntegerFormat(Number(bar.translated)) == 0) {
-                    translatedMarkObject = {
-                        id: i++,
-                        time: bar.time / 1000,
-                        color: { border: '#966330', background: '#fff' },
-                        text: `<p>Actual: ${bar.act_pred}</p>
-                               <p>Translated: ${bar.translated}</p>
-                               <p>Prediction: ${bar.prediction}</p>
-                               <p>Open: ${bar.open}</p>
-                               <p>High: ${bar.high}</p>
-                               <p>Low: ${bar.low}</p>
-                               <p>Close: ${bar.close}</p>`,
-                        minSize: 2
-                    }
-                }
+                // else if(getPredictionInIntegerFormat(bar.act_pred) == 0) {
+                //     actualPredictionMarkObject = {
+                //         id: i++,
+                //         time: bar.time / 1000,
+                //         color: { border: '#966330', background: '#966330' },
+                //         text: `<p>Actual: ${bar.act_pred}</p>
+                //                <p>Translated: ${bar.translated}</p>
+                //                <p>Prediction: ${bar.prediction}</p>
+                //                <p>Open: ${bar.open}</p>
+                //                <p>High: ${bar.high}</p>
+                //                <p>Low: ${bar.low}</p>
+                //                <p>Close: ${bar.close}</p>`,
+                //         minSize: 2
+                //     }
+                // }
                 
-                else if(getPredictionInIntegerFormat(Number(bar.translated)) == 1) {
-                    translatedMarkObject = {
-                        id: i++,
-                        time: bar.time / 1000,
-                        color: { border: '#000', background: '#fff' },
-                        text: `<p>Actual: ${bar.act_pred}</p>
-                               <p>Translated: ${bar.translated}</p>
-                               <p>Prediction: ${bar.prediction}</p>
-                               <p>Open: ${bar.open}</p>
-                               <p>High: ${bar.high}</p>
-                               <p>Low: ${bar.low}</p>
-                               <p>Close: ${bar.close}</p>`,
-                        minSize: 2
-                    }
-                }
+                // else if(getPredictionInIntegerFormat(bar.act_pred) == 1) {
+                //     actualPredictionMarkObject = {
+                //         id: i++,
+                //         time: bar.time / 1000,
+                //         color: { border: '#e2af80', background: '#e2af80' },
+                //         text: `<p>Actual: ${bar.act_pred}</p>
+                //                <p>Translated: ${bar.translated}</p>
+                //                <p>Prediction: ${bar.prediction}</p>
+                //                <p>Open: ${bar.open}</p>
+                //                <p>High: ${bar.high}</p>
+                //                <p>Low: ${bar.low}</p>
+                //                <p>Close: ${bar.close}</p>`,
+                //         minSize: 2
+                //     }
+                // }
 
-                else if(getPredictionInIntegerFormat(Number(bar.translated)) == 2) {
-                    translatedMarkObject = {
-                        id: i++,
-                        time: bar.time / 1000,
-                        text: `<p>Actual: ${bar.act_pred}</p>
-                               <p>Translated: ${bar.translated}</p>
-                               <p>Prediction: ${bar.prediction}</p>
-                               <p>Open: ${bar.open}</p>
-                               <p>High: ${bar.high}</p>
-                               <p>Low: ${bar.low}</p>
-                               <p>Close: ${bar.close}</p>`,
-                        color: { border: '#00ccff', background: '#fff' },
-                        minSize: 2
-                    }
-                }
+                // else if(getPredictionInIntegerFormat(bar.act_pred) == 2) {
+                //     actualPredictionMarkObject = {
+                //         id: i++,
+                //         time: bar.time / 1000,
+                //         text: `<p>Actual: ${bar.act_pred}</p>
+                //                <p>Translated: ${bar.translated}</p>
+                //                <p>Prediction: ${bar.prediction}</p>
+                //                <p>Open: ${bar.open}</p>
+                //                <p>High: ${bar.high}</p>
+                //                <p>Low: ${bar.low}</p>
+                //                <p>Close: ${bar.close}</p>`,
+                //         color: { border: '#00ccff', background: '#00ccff' },
+                //         minSize: 2
+                //     }
+                // }
 
-                else if(getPredictionInIntegerFormat(Number(bar.translated)) == 3) {
-                    translatedMarkObject = {
-                        id: i++,
-                        time: bar.time / 1000,
-                        text: `<p>Actual: ${bar.act_pred}</p>
-                               <p>Translated: ${bar.translated}</p>
-                               <p>Prediction: ${bar.prediction}</p>
-                               <p>Open: ${bar.open}</p>
-                               <p>High: ${bar.high}</p>
-                               <p>Low: ${bar.low}</p>
-                               <p>Close: ${bar.close}</p>`,
-                        color: { border: '#0000a0', background: '#fff' },
-                        minSize: 2
-                    }
-                }
-                else {
-                    translatedMarkObject = {
-                        id: i++,
-                        time: bar.time / 1000,
-                        text: `<p>Actual: ${bar.act_pred}</p>
-                               <p>Translated: ${bar.translated}</p>
-                               <p>Prediction: ${bar.prediction}</p>
-                               <p>Open: ${bar.open}</p>
-                               <p>High: ${bar.high}</p>
-                               <p>Low: ${bar.low}</p>
-                               <p>Close: ${bar.close}</p>`,
-                        color: { border: '#000', background: '#fff' },
-                        minSize: 2
-                    }
-                }
+                // else if(getPredictionInIntegerFormat(bar.act_pred) == 3) {
+                //     actualPredictionMarkObject = {
+                //         id: i++,
+                //         time: bar.time / 1000,
+                //         text: `<p>Actual: ${bar.act_pred}</p>
+                //                <p>Translated: ${bar.translated}</p>
+                //                <p>Prediction: ${bar.prediction}</p>
+                //                <p>Open: ${bar.open}</p>
+                //                <p>High: ${bar.high}</p>
+                //                <p>Low: ${bar.low}</p>
+                //                <p>Close: ${bar.close}</p>`,
+                //         color: { border: '#0000a0', background: '#0000a0' },
+                //         minSize: 2
+                //     }
+                // }
+                // else {
+                //     actualPredictionMarkObject = {
+                //         id: i++,
+                //         time: bar.time / 1000,
+                //         text: `<p>Actual: ${bar.act_pred}</p>
+                //                <p>Translated: ${bar.translated}</p>
+                //                <p>Prediction: ${bar.prediction}</p>
+                //                <p>Open: ${bar.open}</p>
+                //                <p>High: ${bar.high}</p>
+                //                <p>Low: ${bar.low}</p>
+                //                <p>Close: ${bar.close}</p>`,
+                //         color: { border: '#000', background: '#fff' },
+                //         minSize: 2
+                //     }
+                // }
 
-                marks = [...marks, translatedMarkObject]
-
-                let actualPredictionMarkObject;
-
-                if(bar.act_pred == null || bar.act_pred == 0.0000123) {
-                    actualPredictionMarkObject = {
-                        id: i++,
-                        time: bar.time / 1000,
-                        color: { border: '#c7c7c7', background: '#c7c7c7' },
-                        text: `<p>Actual: ${bar.act_pred}</p>
-                               <p>Translated: ${bar.translated}</p>
-                               <p>Prediction: ${bar.prediction}</p>
-                               <p>Open: ${bar.open}</p>
-                               <p>High: ${bar.high}</p>
-                               <p>Low: ${bar.low}</p>
-                               <p>Close: ${bar.close}</p>`,
-                        minSize: 2
-                    }
-                }
-
-                else if(getPredictionInIntegerFormat(bar.act_pred) == 0) {
-                    actualPredictionMarkObject = {
-                        id: i++,
-                        time: bar.time / 1000,
-                        color: { border: '#966330', background: '#966330' },
-                        text: `<p>Actual: ${bar.act_pred}</p>
-                               <p>Translated: ${bar.translated}</p>
-                               <p>Prediction: ${bar.prediction}</p>
-                               <p>Open: ${bar.open}</p>
-                               <p>High: ${bar.high}</p>
-                               <p>Low: ${bar.low}</p>
-                               <p>Close: ${bar.close}</p>`,
-                        minSize: 2
-                    }
-                }
-                
-                else if(getPredictionInIntegerFormat(bar.act_pred) == 1) {
-                    actualPredictionMarkObject = {
-                        id: i++,
-                        time: bar.time / 1000,
-                        color: { border: '#e2af80', background: '#e2af80' },
-                        text: `<p>Actual: ${bar.act_pred}</p>
-                               <p>Translated: ${bar.translated}</p>
-                               <p>Prediction: ${bar.prediction}</p>
-                               <p>Open: ${bar.open}</p>
-                               <p>High: ${bar.high}</p>
-                               <p>Low: ${bar.low}</p>
-                               <p>Close: ${bar.close}</p>`,
-                        minSize: 2
-                    }
-                }
-
-                else if(getPredictionInIntegerFormat(bar.act_pred) == 2) {
-                    actualPredictionMarkObject = {
-                        id: i++,
-                        time: bar.time / 1000,
-                        text: `<p>Actual: ${bar.act_pred}</p>
-                               <p>Translated: ${bar.translated}</p>
-                               <p>Prediction: ${bar.prediction}</p>
-                               <p>Open: ${bar.open}</p>
-                               <p>High: ${bar.high}</p>
-                               <p>Low: ${bar.low}</p>
-                               <p>Close: ${bar.close}</p>`,
-                        color: { border: '#00ccff', background: '#00ccff' },
-                        minSize: 2
-                    }
-                }
-
-                else if(getPredictionInIntegerFormat(bar.act_pred) == 3) {
-                    actualPredictionMarkObject = {
-                        id: i++,
-                        time: bar.time / 1000,
-                        text: `<p>Actual: ${bar.act_pred}</p>
-                               <p>Translated: ${bar.translated}</p>
-                               <p>Prediction: ${bar.prediction}</p>
-                               <p>Open: ${bar.open}</p>
-                               <p>High: ${bar.high}</p>
-                               <p>Low: ${bar.low}</p>
-                               <p>Close: ${bar.close}</p>`,
-                        color: { border: '#0000a0', background: '#0000a0' },
-                        minSize: 2
-                    }
-                }
-                else {
-                    actualPredictionMarkObject = {
-                        id: i++,
-                        time: bar.time / 1000,
-                        text: `<p>Actual: ${bar.act_pred}</p>
-                               <p>Translated: ${bar.translated}</p>
-                               <p>Prediction: ${bar.prediction}</p>
-                               <p>Open: ${bar.open}</p>
-                               <p>High: ${bar.high}</p>
-                               <p>Low: ${bar.low}</p>
-                               <p>Close: ${bar.close}</p>`,
-                        color: { border: '#000', background: '#fff' },
-                        minSize: 2
-                    }
-                }
-
-                marks = [...marks, actualPredictionMarkObject]
+                // marks = [...marks, actualPredictionMarkObject]
 
                 if(bar.direction != null) {
                     let markSize;
@@ -754,87 +754,87 @@ export default {
             backtests_data = [];
             console.log(marks);
         }
-        else {
-            backtests_data.forEach(bar => {
-                let predictionMarkObject;
+        // else {
+        //     backtests_data.forEach(bar => {
+        //         let predictionMarkObject;
 
-                if(bar.prediction == null || bar.prediction == 0.0000123) {
-                    predictionMarkObject = {
-                        id: i++,
-                        time: bar.time / 1000,
-                        color: { border: '#c7c7c7', background: '#c7c7c7' },
-                        text: `<p>Prediction: ${bar.prediction}</p>`,
-                        minSize: 2
-                    }
-                }
+        //         if(bar.prediction == null || bar.prediction == 0.0000123) {
+        //             predictionMarkObject = {
+        //                 id: i++,
+        //                 time: bar.time / 1000,
+        //                 color: { border: '#c7c7c7', background: '#c7c7c7' },
+        //                 text: `<p>Prediction: ${bar.prediction}</p>`,
+        //                 minSize: 2
+        //             }
+        //         }
 
-                else if(getPredictionInIntegerFormat(bar.prediction) == 0) {
-                    predictionMarkObject = {
-                        id: i++,
-                        time: bar.time / 1000,
-                        color: { border: '#966330', background: '#966330' },
-                        text: `<p>Prediction: ${bar.prediction}</p>`,
-                        minSize: 2
-                    }
-                }
+        //         else if(getPredictionInIntegerFormat(bar.prediction) == 0) {
+        //             predictionMarkObject = {
+        //                 id: i++,
+        //                 time: bar.time / 1000,
+        //                 color: { border: '#966330', background: '#966330' },
+        //                 text: `<p>Prediction: ${bar.prediction}</p>`,
+        //                 minSize: 2
+        //             }
+        //         }
                 
-                else if(getPredictionInIntegerFormat(bar.prediction) == 1) {
-                    predictionMarkObject = {
-                        id: i++,
-                        time: bar.time / 1000,
-                        color: { border: '#e2af80', background: '#e2af80' },
-                        text: `<p>Prediction: ${bar.prediction}</p>`,
-                        minSize: 2
-                    }
-                }
+        //         else if(getPredictionInIntegerFormat(bar.prediction) == 1) {
+        //             predictionMarkObject = {
+        //                 id: i++,
+        //                 time: bar.time / 1000,
+        //                 color: { border: '#e2af80', background: '#e2af80' },
+        //                 text: `<p>Prediction: ${bar.prediction}</p>`,
+        //                 minSize: 2
+        //             }
+        //         }
 
-                else if(getPredictionInIntegerFormat(bar.prediction) == 2) {
-                    predictionMarkObject = {
-                        id: i++,
-                        time: bar.time / 1000,
-                        text: `<p>Prediction: ${bar.prediction}</p>`,
-                        color: { border: '#00ccff', background: '#00ccff' },
-                        minSize: 2
-                    }
-                }
+        //         else if(getPredictionInIntegerFormat(bar.prediction) == 2) {
+        //             predictionMarkObject = {
+        //                 id: i++,
+        //                 time: bar.time / 1000,
+        //                 text: `<p>Prediction: ${bar.prediction}</p>`,
+        //                 color: { border: '#00ccff', background: '#00ccff' },
+        //                 minSize: 2
+        //             }
+        //         }
 
-                else if(getPredictionInIntegerFormat(bar.prediction) == 3) {
-                    predictionMarkObject = {
-                        id: i++,
-                        time: bar.time / 1000,
-                        color: { border: '#0000a0', background: '#0000a0' },
-                        text: `<p>Prediction: ${bar.prediction}</p>`,
-                        minSize: 2
-                    }
-                }
+        //         else if(getPredictionInIntegerFormat(bar.prediction) == 3) {
+        //             predictionMarkObject = {
+        //                 id: i++,
+        //                 time: bar.time / 1000,
+        //                 color: { border: '#0000a0', background: '#0000a0' },
+        //                 text: `<p>Prediction: ${bar.prediction}</p>`,
+        //                 minSize: 2
+        //             }
+        //         }
                 
-                else {
-                    predictionMarkObject = {
-                        id: i++,
-                        time: bar.time / 1000,
-                        color:  { border: '#000', background: '#fff' } ,
-                        text: `<p>Prediction: ${bar.prediction}</p>`,
-                        minSize: 2
-                    }
-                }
+        //         else {
+        //             predictionMarkObject = {
+        //                 id: i++,
+        //                 time: bar.time / 1000,
+        //                 color:  { border: '#000', background: '#fff' } ,
+        //                 text: `<p>Prediction: ${bar.prediction}</p>`,
+        //                 minSize: 2
+        //             }
+        //         }
 
-                marks = [...marks, predictionMarkObject]
+        //         marks = [...marks, predictionMarkObject]
 
-                let markObject = {
-                    id: i++,
-                    time: bar.time / 1000,
-                    color: bar.match_or_no_match == 'No Match!' ? { border: '#d63c2d', background: '#d63c2d' } : 
-                                                                  { border: '#32cd32', background: '#32cd32' },
-                    text: `<p>${bar.match_or_no_match}</p>`,
-                    minSize: 2
-                }
+        //         let markObject = {
+        //             id: i++,
+        //             time: bar.time / 1000,
+        //             color: bar.match_or_no_match == 'No Match!' ? { border: '#d63c2d', background: '#d63c2d' } : 
+        //                                                           { border: '#32cd32', background: '#32cd32' },
+        //             text: `<p>${bar.match_or_no_match}</p>`,
+        //             minSize: 2
+        //         }
 
-                marks = [...marks, markObject];
-            })
-            i = 0;
-            onDataCallback(marks);
-            backtests_data = [];
-            console.log(marks);
-        }
+        //         marks = [...marks, markObject];
+        //     })
+        //     i = 0;
+        //     onDataCallback(marks);
+        //     backtests_data = [];
+        //     console.log(marks);
+        // }
     },
 }
