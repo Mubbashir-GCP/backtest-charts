@@ -3,12 +3,14 @@ import CumPNLDatafeed from './CumPNLDatafeed.js';
 import ActualLabelsDatafeed from './ActualLabelsDatafeed.js';
 import PredictedLabelsDatafeed from './PredictedLabelsDatafeed.js';
 import MatchNoMatchDatafeed from './MatchNoMatchDatafeed.js';
+import { indicators } from './helpers.js'
+
+let i = 0;
 
 // x = thisdict["STRATEGY"].get('TRANSLATION', None)
 // res = re.findall(r"'([^']+)'", x)
 
 // res_new = res 
-
 let close = []
 let ema = []
 let lEMA = []
@@ -141,8 +143,33 @@ window.tvWidget = new TradingView.widget({
                             let logEma = Math.log((first_part + second_part))
                             lEMA.push(logEma)
                         }
-                
-                        // console.log(close.length)
+
+                        
+                        
+                        // let indicatorValues = null;
+                        
+                        // indicators.forEach(indctr => {
+                        //     if(new Date(indctr.date_in) == new Date(PineJS.Std.time(this._context))) {
+                        //         indicatorValues = indctr.sigmas
+                        //     }
+
+                        //     return[JSON.parse(indctr.sigmas[0])['sigma30(pct(c))']]
+                        //     // let date = new Date(indctr.date_in);
+
+                        // //     console.log(new Date(date.getTime() - 18000000))
+                        // //     console.log(indctr.date_in)
+                        // })
+
+
+                        // console.log(indicatorValues)
+                        // let date = Date(PineJS.Std.time(this._context))
+                        // if(PineJS.Std.close(this._context)) {
+                        //     return[JSON.parse(indicators[i].sigmas)['pct(close[0]-open[0])']]
+                        //     ++i
+                        // }
+
+                        // console.log()
+                        console.log(JSON.parse(indicators[0].sigmas)['pct(close[0]-open[0])'])
                         if(lEMA.length >= 2) {
                             if(lEMA[lEMA.length - 1] - lEMA[lEMA.length - 2] >= -0.00043573300000000005 && 
                                 lEMA[lEMA.length - 1] - lEMA[lEMA.length - 2] <= 0.000197509)
@@ -274,7 +301,7 @@ window.tvWidget = new TradingView.widget({
                             lEMA.push(logEma)
                         }
                 
-                        console.log(volume)
+                        // console.log(volume)
                         if(ema.length >= 2)
                             if((ema[ema.length - 1] - ema[ema.length - 2]) / ema[ema.length - 2] >= -0.000479653 &&
                                 (ema[ema.length - 1] - ema[ema.length - 2]) / ema[ema.length - 2] <= 0.00002004806152)
@@ -531,6 +558,21 @@ window.tvWidget = new TradingView.widget({
                         let volume = PineJS.Std.volume(this._context)
                         let sum = 0
                         let multiplier = (2 / 4)
+
+                        let indicatorValues = null;
+                        
+                        indicators.forEach(indctr => {
+                            if(new Date(indctr.date_in) == new Date(PineJS.Std.time(this._context))) {
+                                indicatorValues = indctr.sigmas
+                            }
+
+                            console.log(JSON.parse(indctr.sigmas)['sigma30(pct(c))'])
+                            return[JSON.parse(indctr.sigmas)['sigma30(pct(c))']]
+                            // let date = new Date(indctr.date_in);
+
+                        //     console.log(new Date(date.getTime() - 18000000))
+                        //     console.log(indctr.date_in)
+                        })
                         
                         if(!isNaN(v)) 
                             close.push(v)

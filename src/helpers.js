@@ -1,6 +1,8 @@
-// export let backtests_data = [];
+export let indicators = [];
 
 export async function makeApiRequest(path) {
+    indicators = await getSigmas();
+
     try {
         // const response = await fetch(`https://min-api.cryptocompare.com/${path}`);
         const response = await fetch('http://localhost:3000/backtestData', {
@@ -13,6 +15,22 @@ export async function makeApiRequest(path) {
         return response.json();
     } catch(error) {
         throw new Error(`CryptoCompare request error: ${error.status}`);
+    }
+}
+
+export async function getSigmas() {
+    try {
+        // const response = await fetch(`https://min-api.cryptocompare.com/${path}`);
+        const response = await fetch('http://localhost:3000/getSigmas', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        // backtests_data = response.json();
+        return response.json();
+    } catch(error) {
+        throw new Error(`Cannot get indicators data: ${error.status}`);
     }
 }
 

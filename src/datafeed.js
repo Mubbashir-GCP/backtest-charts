@@ -1,4 +1,4 @@
-import { makeApiRequest } from './helpers.js';
+import { makeApiRequest, getSigmas } from './helpers.js';
 
 let backtests_data = [];
 
@@ -51,6 +51,7 @@ export default {
 
         try {
             const data = await makeApiRequest();
+            // indicators = await getSigmas(); 
             
             if(data.hasOwnProperty('noData'))
                 alert('No Data returned!');

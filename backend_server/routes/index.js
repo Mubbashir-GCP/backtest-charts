@@ -1,4 +1,5 @@
 const { response } = require('express');
+const fs = require('fs');
 var express = require('express');
 var router = express.Router();
 const cors = require('cors');
@@ -31,6 +32,13 @@ let almPctQueryText = `with a1 as (
 let almPktrQueryText = `with a1 as (
   select * from public.consolidated_results_alm_pt
   where model_unique_id = $1 order by timestamps asc limit 1000)
+  
+  select row_to_json(a1) from a1`;
+
+let getSigmasText = `with a1 as (
+  select * from public.json_backtests 
+  where bt_id = $1 
+  and date_in >= '2020-01-15 09:30:00'::timestamp order by date_in asc)
   
   select row_to_json(a1) from a1`;
 
@@ -106,6 +114,30 @@ router.get('/almPktrChart', cors(), (req, res, next) => {
   return res.redirect('http://localhost:5000?almPktrModelUniqueId=' + almPktrModelUniqueId);
 });
 
+router.get('/getSigmas', cors(), async (req, res, next) => {
+  client.connect()
+  .then(() => {
+    console.log('Database connection established');
+  })
+  .catch(error => console.log(error.message));
+
+  let indicatorsJsons = [];
+
+  let response;
+  response = await client.query(getSigmasText, [backtestId]);
+
+  response.rows.forEach(row => {
+    indicatorsJsons = [... indicatorsJsons, row.row_to_json]
+  });
+
+  console.log(JSON.parse(indicatorsJsons[0].sigmas));
+
+  if(indicatorsJsons.length == 0)
+    return res.json({noData: true});
+  else
+    return res.json(indicatorsJsons);
+})
+
 router.get('/backtestData', cors(), async (req, res, next) => {
 
   // console.log('Hello');
@@ -132,8 +164,10 @@ router.get('/backtestData', cors(), async (req, res, next) => {
     backtests_jsons = [... backtests_jsons, row.row_to_json]
   });
   
-  console.log(backtests_jsons);
+  // console.log(backtests_jsons);
   console.log('No. of rows returned: ' + backtests_jsons.length);
+
+  // fs.writeFileSync('/home/mubbashir/Projects/backtest-charts/backend_server/temp_backtest_data.json', JSON.stringify(backtests_jsons))
 
   if(backtests_jsons.length == 0)
     return res.json({noData: true});
