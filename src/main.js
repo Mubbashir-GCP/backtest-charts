@@ -5,8 +5,10 @@ import PredictedLabelsDatafeed from './PredictedLabelsDatafeed.js';
 import MatchNoMatchDatafeed from './MatchNoMatchDatafeed.js';
 import { indicators } from './helpers.js'
 
-let i = 0;
-
+let sigma30_pct_c_count = 0;
+let diff_log_ema3_close_count = 0
+let pct_ema3_close_count = 0
+let pct_chng_obv200_count = 0;
 // x = thisdict["STRATEGY"].get('TRANSLATION', None)
 // res = re.findall(r"'([^']+)'", x)
 
@@ -169,14 +171,32 @@ window.tvWidget = new TradingView.widget({
                         // }
 
                         // console.log()
-                        console.log(JSON.parse(indicators[0].sigmas)['pct(close[0]-open[0])'])
-                        if(lEMA.length >= 2) {
-                            if(lEMA[lEMA.length - 1] - lEMA[lEMA.length - 2] >= -0.00043573300000000005 && 
-                                lEMA[lEMA.length - 1] - lEMA[lEMA.length - 2] <= 0.000197509)
-                                return [lEMA[lEMA.length - 1] - lEMA[lEMA.length - 2]];
-                            else
-                                return [0]
+                        // console.log(JSON.parse(indicators[0].sigmas)['pct(close[0]-open[0])'])
+                        // if(lEMA.length >= 2) {
+                        //     if(lEMA[lEMA.length - 1] - lEMA[lEMA.length - 2] >= -0.00043573300000000005 && 
+                        //         lEMA[lEMA.length - 1] - lEMA[lEMA.length - 2] <= 0.000197509)
+                        //         return [lEMA[lEMA.length - 1] - lEMA[lEMA.length - 2]];
+                        //     else
+                        //         return [0]
+                        // }
+
+                        
+
+                        if(new Date(PineJS.Std.time(this._context)) && diff_log_ema3_close_count < indicators.length) {
+                            // console.log(new Date(PineJS.Std.time(this._context)))
+                            // console.log(new Date(indicators[diff_log_ema3_close_count].datetime))
+                            // console.log(indicators[diff_log_ema3_close_count].diff_log_ema3_close)
+
+                            if(indicators[diff_log_ema3_close_count].diff_log_ema3_close >= -0.00043573300000000005 &&
+                                indicators[diff_log_ema3_close_count].diff_log_ema3_close <= 0.000197509)
+                                return[indicators[diff_log_ema3_close_count++].diff_log_ema3_close]
+                            else {
+                                ++diff_log_ema3_close_count;
+                                return[0]
+                            }
                         }
+
+                        return[0];
                     }
                 }
             },
@@ -302,12 +322,28 @@ window.tvWidget = new TradingView.widget({
                         }
                 
                         // console.log(volume)
-                        if(ema.length >= 2)
-                            if((ema[ema.length - 1] - ema[ema.length - 2]) / ema[ema.length - 2] >= -0.000479653 &&
-                                (ema[ema.length - 1] - ema[ema.length - 2]) / ema[ema.length - 2] <= 0.00002004806152)
-                                return [(ema[ema.length - 1] - ema[ema.length - 2]) / ema[ema.length - 2]];
-                            else
+                        // if(ema.length >= 2)
+                        //     if((ema[ema.length - 1] - ema[ema.length - 2]) / ema[ema.length - 2] >= -0.000479653 &&
+                        //         (ema[ema.length - 1] - ema[ema.length - 2]) / ema[ema.length - 2] <= 0.00002004806152)
+                        //         return [(ema[ema.length - 1] - ema[ema.length - 2]) / ema[ema.length - 2]];
+                        //     else
+                        //         return[0]
+
+                        if(new Date(PineJS.Std.time(this._context)) && pct_ema3_close_count < indicators.length) {
+                            // console.log(new Date(PineJS.Std.time(this._context)))
+                            // console.log(new Date(indicators[diff_log_ema3_close_count].datetime))
+                            // console.log(indicators[diff_log_ema3_close_count].diff_log_ema3_close)
+
+                            if(indicators[pct_ema3_close_count].pct_ema3close_ema3close_1 >= -0.000479653 &&
+                                indicators[pct_ema3_close_count].pct_ema3close_ema3close_1 <= 0.00002004806152)
+                                return[indicators[pct_ema3_close_count++].pct_ema3close_ema3close_1]
+                            else {
+                                ++pct_ema3_close_count;
                                 return[0]
+                            }
+                        }
+
+                        return[0];
                     }
                 }
             },
@@ -444,14 +480,30 @@ window.tvWidget = new TradingView.widget({
                         // }
                 
                         // console.log(volume)
-                        if(volForObv.length >= 2)
-                            if((obv200Arr[obv200Arr.length - 1] - obv200Arr[obv200Arr.length - 2]) / 
-                                obv200Arr[obv200Arr.length - 2] >= -1.176879616 &&
-                                (obv200Arr[obv200Arr.length - 1] - obv200Arr[obv200Arr.length - 2]) / 
-                                obv200Arr[obv200Arr.length - 2] <= 4.784229527)
-                                    return [(obv200Arr[obv200Arr.length - 1] - obv200Arr[obv200Arr.length - 2]) / obv200Arr[obv200Arr.length - 2]];
-                            else
+                        // if(volForObv.length >= 2)
+                        //     if((obv200Arr[obv200Arr.length - 1] - obv200Arr[obv200Arr.length - 2]) / 
+                        //         obv200Arr[obv200Arr.length - 2] >= -1.176879616 &&
+                        //         (obv200Arr[obv200Arr.length - 1] - obv200Arr[obv200Arr.length - 2]) / 
+                        //         obv200Arr[obv200Arr.length - 2] <= 4.784229527)
+                        //             return [(obv200Arr[obv200Arr.length - 1] - obv200Arr[obv200Arr.length - 2]) / obv200Arr[obv200Arr.length - 2]];
+                        //     else
+                        //         return[0]
+
+                        if(new Date(PineJS.Std.time(this._context)) && pct_chng_obv200_count < indicators.length) {
+                            // console.log(new Date(PineJS.Std.time(this._context)))
+                            // console.log(new Date(indicators[diff_log_ema3_close_count].datetime))
+                            // console.log(indicators[diff_log_ema3_close_count].diff_log_ema3_close)
+
+                            if(indicators[pct_chng_obv200_count].pct_chng_obv200_obv200_1 >= -1.176879616 &&
+                                indicators[pct_chng_obv200_count].pct_chng_obv200_obv200_1 <= 4.784229527)
+                                return[indicators[pct_chng_obv200_count++].pct_chng_obv200_obv200_1]
+                            else {
+                                ++pct_chng_obv200_count;
                                 return[0]
+                            }
+                        }
+
+                        return[0];
                     }
                 }
             },
@@ -561,18 +613,39 @@ window.tvWidget = new TradingView.widget({
 
                         let indicatorValues = null;
                         
-                        indicators.forEach(indctr => {
-                            if(new Date(indctr.date_in) == new Date(PineJS.Std.time(this._context))) {
-                                indicatorValues = indctr.sigmas
+                        // for(let i = 0; i < indicators.length; ++i) {
+                            
+                        //     if(new Date(indicators[i].datetime) === new Date(PineJS.Std.time(this._context))) {
+                        //         console.log(new Date(indicators[i].datetime))
+                        //         console.log(new Date(PineJS.Std.time(this._context)))
+                        //         console.log(indicators[i].sigma30_pct_c)
+
+                        //         indicatorValues = indicators[i].sigma30_pct_c
+                        //         break;
+                        //     }
+
+                            
+                        //     // let date = new Date(indctr.date_in);
+
+                        // //     console.log(new Date(date.getTime() - 18000000))
+                        // //     console.log(indctr.date_in)
+                        // }
+
+                        if(new Date(PineJS.Std.time(this._context)) && sigma30_pct_c_count < indicators.length) {
+                            console.log(new Date(PineJS.Std.time(this._context)))
+                            console.log(new Date(indicators[sigma30_pct_c_count].datetime))
+                            console.log(indicators[sigma30_pct_c_count].sigma30_pct_c)
+
+                            if(indicators[sigma30_pct_c_count].sigma30_pct_c >= 0.000290698 &&
+                                indicators[sigma30_pct_c_count].sigma30_pct_c <= 0.000678001)
+                                return[indicators[sigma30_pct_c_count++].sigma30_pct_c]
+                            else {
+                                ++sigma30_pct_c_count;
+                                return[0]
                             }
+                        }
 
-                            console.log(JSON.parse(indctr.sigmas)['sigma30(pct(c))'])
-                            return[JSON.parse(indctr.sigmas)['sigma30(pct(c))']]
-                            // let date = new Date(indctr.date_in);
-
-                        //     console.log(new Date(date.getTime() - 18000000))
-                        //     console.log(indctr.date_in)
-                        })
+                        return[0];
                         
                         if(!isNaN(v)) 
                             close.push(v)
@@ -616,10 +689,10 @@ window.tvWidget = new TradingView.widget({
 });
 
 window.tvWidget.onChartReady(function() {
-    window.tvWidget.chart().createStudy('diff(log(emaclose3))', false, true);
-    window.tvWidget.chart().createStudy('pct(ema3close)', false, true);
-    window.tvWidget.chart().createStudy('pct(obv200)', false, true);
-    window.tvWidget.chart().createStudy('sigma30(pct(c))', false, true);
+    // window.tvWidget.chart().createStudy('diff(log(emaclose3))', false, true);
+    // window.tvWidget.chart().createStudy('pct(ema3close)', false, true);
+    // window.tvWidget.chart().createStudy('pct(obv200)', false, true);
+    // window.tvWidget.chart().createStudy('sigma30(pct(c))', false, true);
 })
 
 // window.tvWidget = new TradingView.widget({

@@ -1,7 +1,7 @@
 export let indicators = [];
 
 export async function makeApiRequest(path) {
-    indicators = await getSigmas();
+    // indicators = await getSigmas();
 
     try {
         // const response = await fetch(`https://min-api.cryptocompare.com/${path}`);

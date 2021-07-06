@@ -19,7 +19,8 @@ let pctQueryText = `with a1 as (select * from public.consolidated_results
 select row_to_json(a1) from a1`;
 
 let backtestQueryText = `with a1 as (
-  select distinct * from get_chart_data($1) order by timestamp_ asc)
+  select distinct * from get_chart_data($1)
+  order by timestamp_ asc)
 
   select row_to_json(a1) from a1`;
 
@@ -31,14 +32,17 @@ let almPctQueryText = `with a1 as (
 
 let almPktrQueryText = `with a1 as (
   select * from public.consolidated_results_alm_pt
-  where model_unique_id = $1 order by timestamps asc limit 1000)
+  where model_unique_id = $1
+   order by timestamps asc limit 1000)
   
   select row_to_json(a1) from a1`;
 
 let getSigmasText = `with a1 as (
-  select * from public.json_backtests 
-  where bt_id = $1 
-  and date_in >= '2020-01-15 09:30:00'::timestamp order by date_in asc)
+  select datetime, sigma30_pct_c, diff_log_ema3_close,
+  pct_ema3close_ema3close_1, pct_chng_obv200_obv200_1 from public.indicators_for_charting 
+  where bt_id = $1
+  and datetime >= '2021-06-21'::timestamp
+  order by datetime asc)
   
   select row_to_json(a1) from a1`;
 
@@ -52,10 +56,10 @@ let almPctModelUniqueId = '';
 let almPktrModelUniqueId = '';
 
 const client = new Client({
-  user: 'gcpv1_colab_server',
+  user: 'gcpv1_mubbashir',
   host: 'gcp01.dynamic-dns.net',
   database: 'greencanvas',
-  password: 'gc$%#798w',
+  password: 'gc$$32145#5',
   port: 5432
 });
 
@@ -130,7 +134,7 @@ router.get('/getSigmas', cors(), async (req, res, next) => {
     indicatorsJsons = [... indicatorsJsons, row.row_to_json]
   });
 
-  console.log(JSON.parse(indicatorsJsons[0].sigmas));
+  console.log(indicatorsJsons);
 
   if(indicatorsJsons.length == 0)
     return res.json({noData: true});
